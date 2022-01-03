@@ -11,6 +11,9 @@
   </head>
 
   <body>
+  <% if flash[:notice] %>
+    <b style="color: green"><%= flash[:notice] %></b>
+  <% end %>
     <ul>
       <li><%= link_to 'Relatórios', reports_path %></li>
     </ul>

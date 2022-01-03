@@ -24,5 +24,6 @@ class ReportsController < ApplicationController
     @low_priority_report_path = Rails.configuration.report_generator[:report_low]
     @default_reports = Report.where(report_type: 1) # Dir["#{@default_report_path}/*"]
     @low_priority_reports = Report.where(report_type: 0) # Dir["#{@low_priority_report_path}/*"]
+    @reports = Report.all
   end
 end

@@ -1,6 +1,3 @@
-<% if flash[:notice] %>
-  <b style="color: green"><%= flash[:notice] %></b>
-<% end %>
 <h2>Relatórios</h2>
 <%= form_tag("/reports", method: "post") do %>
   <%= submit_tag("Gerar Novo") %>
@@ -12,12 +9,10 @@
       <div id="list_reports">
         <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
         <ul>
-          <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, target: "_blank" %></li>
+          <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' } %></li>
         </ul> <br>
       </div>
     <% end %>
-    <%# data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
-    method: :delete, data: { confirm: 'Are you sure?' }%>
   </ol>
 </div>
 <div>
@@ -30,5 +25,12 @@
     <% end %>
   </ol>
 </div>
-
+<div>
+  <h3>Fila</h3>
+  <ol> 
+    <% @reports.each do |report| %> 
+      <li><%= report.report_type %> </li>
+    <% end %>
+  </ol>
+</div>
 <hr>
