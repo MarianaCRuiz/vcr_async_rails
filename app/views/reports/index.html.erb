@@ -1,7 +1,14 @@
-<h2>Relatórios</h2>
-<%= form_tag("/reports", method: "post") do %>
-  <%= submit_tag("Gerar Novo") %>
-<% end %>
+<h2 class="horizontal-center">Relatórios</h2>
+<div class="horizontal-center">
+  <%= form_tag("/reports", method: "post") do %>
+    <%= submit_tag("Gerar Novo") %>
+  <% end %>
+</div>
+<div class="horizontal-center">
+  <ul>
+    <li><%= button_to 'Deletar todos os Relatórios', destroy_all_reports_path, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+  </ul>
+</div>
 <div>
   <h3>Relatórios Alta Proridade</h3>
   <ol> 
@@ -19,8 +26,11 @@
   <h3>Relatórios Baixa Proridade</h3>
   <ol> 
     <% @low_priority_reports.each do |report| %>
-      <div>
-        <li><%= link_to(report.address.split('/').last, "/reports/low_priority/#{report.address.split('/').last}", target: "_blank") %></li> <br>
+      <div id="list_low_reports">
+        <li><%= link_to(report.address.split('/').last, "/reports/low_priority/#{report.address.split('/').last}", target: "_blank") %></li>
+        <ul>
+          <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' } %></li>
+        </ul> <br>
       </div>
     <% end %>
   </ol>

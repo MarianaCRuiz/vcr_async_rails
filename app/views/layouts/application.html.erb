@@ -11,12 +11,21 @@
   </head>
 
   <body>
-  <% if flash[:notice] %>
-    <b style="color: green"><%= flash[:notice] %></b>
-  <% end %>
-    <ul>
-      <li><%= link_to 'Relatórios', reports_path %></li>
-    </ul>
-    <%= yield %>
+    <div>
+      <% if notice %>
+        <div id="notice">
+          <h3><%= notice %></h3>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div id="alert">
+          <h3><%= alert %></h3>
+        </div>
+      <% end %>
+      <ul class="horizontal-center">
+        <li><%= link_to 'Relatórios', reports_path %></li>
+      </ul>
+      <%= yield %>
+    </div>
   </body>
 </html>

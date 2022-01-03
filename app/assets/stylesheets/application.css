@@ -13,6 +13,19 @@
  *= require_tree .
  *= require_self
  */
- ul {
+ul {
   list-style-type: none;
+}
+.horizontal-center {
+  text-align: center;
+}
+div#alert{
+  border-style: solid;
+  border-color: coral;
+  text-align: center;
+}
+div#notice {
+  border-style: solid;
+  border-color: green;
+  text-align: center;
 }
