@@ -38,3 +38,10 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+
+rspec.txt
+/covarage
+
+/public/reports/*
+/spec/fixtures/vcr_cassettes/*

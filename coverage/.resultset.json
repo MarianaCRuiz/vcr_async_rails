@@ -1,0 +1,137 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/opt/app/app/jobs/report_example_job.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          4,
+          4,
+          4,
+          4,
+          4,
+          null,
+          null,
+          1,
+          4,
+          4,
+          4,
+          4,
+          4,
+          null,
+          null,
+          1,
+          4,
+          4,
+          null,
+          null,
+          1,
+          4,
+          4,
+          4,
+          36,
+          4,
+          null,
+          null
+        ]
+      },
+      "/opt/app/app/jobs/application_job.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/opt/app/app/models/report.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/opt/app/app/workers/report_low_priority_worker.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          5,
+          5,
+          5,
+          5,
+          null,
+          null,
+          1,
+          45,
+          5,
+          5,
+          5,
+          5,
+          5,
+          null,
+          null,
+          1,
+          5,
+          5,
+          5,
+          null,
+          null
+        ]
+      },
+      "/opt/app/app/controllers/home_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/opt/app/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/opt/app/app/controllers/reports_controller.rb": {
+        "lines": [
+          1,
+          1,
+          5,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          5,
+          5,
+          5,
+          5,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1641233904
+  }
+}

@@ -1,0 +1,14 @@
+---
+production:
+development:
+  reports_folder: 'public/reports'
+  report_default: 'public/reports/default'
+  report_low: 'public/reports/low_priority'
+  sleep_time_reports: 0
+  sleep_time_low: 0
+test:
+  reports_folder: 'spec/reports'
+  report_default: 'spec/reports/default'
+  report_low: 'spec/reports/low_priority'
+  sleep_time_reports: 0
+  sleep_time_low: 0

@@ -1,0 +1,34 @@
+<% if flash[:notice] %>
+  <b style="color: green"><%= flash[:notice] %></b>
+<% end %>
+<h2>Relatórios</h2>
+<%= form_tag("/reports", method: "post") do %>
+  <%= submit_tag("Gerar Novo") %>
+<% end %>
+<div>
+  <h3>Relatórios Alta Proridade</h3>
+  <ol> 
+    <% @default_reports.each do |report| %> 
+      <div id="list_reports">
+        <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
+        <ul>
+          <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, target: "_blank" %></li>
+        </ul> <br>
+      </div>
+    <% end %>
+    <%# data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+    method: :delete, data: { confirm: 'Are you sure?' }%>
+  </ol>
+</div>
+<div>
+  <h3>Relatórios Baixa Proridade</h3>
+  <ol> 
+    <% @low_priority_reports.each do |report| %>
+      <div>
+        <li><%= link_to(report.address.split('/').last, "/reports/low_priority/#{report.address.split('/').last}", target: "_blank") %></li> <br>
+      </div>
+    <% end %>
+  </ol>
+</div>
+
+<hr>
