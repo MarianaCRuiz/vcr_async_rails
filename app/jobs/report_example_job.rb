@@ -8,7 +8,7 @@ class ReportExampleJob < ApplicationJob
   end
 
   def arraging_report_folder
-    ReportFolder.creating_reports_folder
+    ReportFolder.creating_general_reports_folder
     @report_address = ReportFolder.setting_default_report_folder(@code)
   end
 

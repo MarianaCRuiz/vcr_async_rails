@@ -1,5 +1,5 @@
 class ReportFolder
-  def self.creating_reports_folder
+  def self.creating_general_reports_folder
     all_reports_folder = Rails.configuration.report_generator[:reports_folder]
     Dir.mkdir(all_reports_folder) unless File.directory?(all_reports_folder)
   end

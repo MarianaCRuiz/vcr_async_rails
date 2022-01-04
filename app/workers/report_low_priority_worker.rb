@@ -16,7 +16,7 @@ class ReportLowPriorityWorker
   end
 
   def arraging_report_folder
-    ReportFolder.creating_reports_folder
+    ReportFolder.creating_general_reports_folder
     @report_low_address = ReportFolder.setting_low_report_folder(@code)
   end
 
