@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_03_180103) do
+ActiveRecord::Schema.define(version: 2022_01_04_143948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2022_01_03_180103) do
     t.integer "report_type", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "report_code"
+    t.index ["report_code"], name: "index_reports_on_report_code", unique: true
   end
 
 end

@@ -5,7 +5,7 @@ describe ReportExampleJob do
 
   it 'verify if queued' do
     VCR.use_cassette('report_example') do
-      expect { ReportExampleJob.perform_later }.to have_enqueued_job.on_queue('reports')
+      expect { ReportExampleJob.perform_later }.to have_enqueued_job.on_queue('default')
     end
   end
 
@@ -22,7 +22,7 @@ describe ReportExampleJob do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       before_generator = Dir[Rails.root.join('spec/reports/default/*')].length
 
-      expect { ReportExampleJob.perform_later }.to have_performed_job.on_queue('reports')
+      expect { ReportExampleJob.perform_later }.to have_performed_job.on_queue('default')
       expect(Dir[Rails.root.join('spec/reports/default/*')].length).to eq(before_generator + 1)
     end
   end

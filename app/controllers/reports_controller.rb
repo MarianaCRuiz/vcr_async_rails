@@ -4,16 +4,14 @@ class ReportsController < ApplicationController
   def index; end
 
   def create
-    ReportExampleJob.perform_later
-    ReportLowPriorityWorker.perform_async
+    Report.generator
     redirect_to reports_path, notice: 'Estamos processando seu relatório \\o/'
   end
 
   def destroy
     @report = Report.find_by(id: params[:id])
-    address = @report.address
     @report.destroy
-    FileUtils.rm_rf(address)
+    FileUtils.rm_rf(@report.address)
     redirect_to reports_path, notice: 'Relatório excluído com sucesso'
   end
 
