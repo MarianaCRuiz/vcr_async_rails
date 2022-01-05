@@ -16,16 +16,21 @@
 ul {
   list-style-type: none;
 }
-.horizontal-center {
+/* .horizontal-center {
   text-align: center;
-}
+} */
 div#alert{
   border-style: solid;
   border-color: coral;
   text-align: center;
 }
 div#notice {
+  color: green;
   border-style: solid;
   border-color: green;
   text-align: center;
+}
+ul#headbar li {
+  display:inline;
+  padding: 5px;
 }

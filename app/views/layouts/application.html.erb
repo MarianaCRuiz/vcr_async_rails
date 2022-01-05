@@ -22,8 +22,11 @@
           <h3><%= alert %></h3>
         </div>
       <% end %>
-      <ul class="horizontal-center">
+      <br>
+      <ul id="headbar">
         <li><%= link_to 'Relatórios', reports_path %></li>
+        <li><%= link_to 'Home', root_path %></li>
+        <li><%= link_to 'Sidekiq', sidekiq_web_path, target: "_blank" %></li>
       </ul>
       <%= yield %>
     </div>

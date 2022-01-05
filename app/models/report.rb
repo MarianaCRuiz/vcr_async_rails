@@ -15,5 +15,4 @@ class Report < ApplicationRecord
     end
     @code
   end
-
 end

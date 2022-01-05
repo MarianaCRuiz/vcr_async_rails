@@ -1,7 +1,9 @@
 <h2 class="horizontal-center">Relatórios</h2>
 <div class="horizontal-center">
   <%= form_tag("/reports", method: "post") do %>
-    <%= submit_tag("Gerar Novo") %>
+    <ul>
+      <li><%= submit_tag("Gerar Novo") %></li>
+    </ul>
   <% end %>
 </div>
 <div class="horizontal-center">
@@ -36,7 +38,7 @@
   </ol>
 </div>
 <div>
-  <h3>Fila</h3>
+  <h3>Sequencia</h3>
   <ol> 
     <% @reports.each do |report| %> 
       <li><%= report.report_type %> </li>

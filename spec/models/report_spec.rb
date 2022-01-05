@@ -18,30 +18,33 @@ describe Report do
 
     it '.generator' do
       ActiveJob::Base.queue_adapter = :test
-      expect{ Report.generator }.to have_enqueued_job.on_queue('default')
+      expect { Report.generator }.to have_enqueued_job.on_queue('default')
       expect { Report.generator }.to change(ReportLowPriorityWorker.jobs, :size).by(1)
     end
 
     it '.generate_code once' do
-      attrs = attributes_for(:report, :default)
-      code1 = attrs[:report_code]
-      allow(SecureRandom).to receive(:base58).with(8).and_return(code1)
-      expect(Report.generate_code).to eq(code1)
+      code = attributes_for(:report, :default)[:report_code]
+      allow(SecureRandom).to receive(:base58).with(8).and_return(code)
+      expect(Report.generate_code).to eq(code)
     end
 
     it '.generate_code twice' do
       report = create(:report, :low)
-      attrs = attributes_for(:report, :default)
-      code = attrs[:report_code]
-      allow(SecureRandom).to receive(:base58).with(8).and_return(report.report_code)
-      allow(SecureRandom).to receive(:base58).with(8).and_return(code)
+      code = attributes_for(:report, :default)[:report_code]
+      allow(SecureRandom).to receive(:base58).with(8).and_return(report.report_code, code)
       expect(Report.generate_code).to eq(code)
+    end
+
+    it '.generate_code break' do
+      allow(Report).to receive(:exists?).and_return(true, false, true)
+      Report.generate_code
+      expect(Report).to have_received(:exists?).exactly(2).times
+    end
+
+    it '.generate_code break another approach' do
+      expect(Report).to receive(:exists?).exactly(2).times
+      allow(Report).to receive(:exists?).and_return(true, false, true)
+      Report.generate_code
     end
   end
 end
-     # code2 = SecureRandom.base58(8)
-      # allow(Report).to receive(:code_exists) { false }
-      #allow(SecureRandom).to receive(:base58).with(8).and_call_original
-      # expect(Report).to receive(SecureRandom.base58(8)).twice
-      #allow(Report).to receive(:exists?).and_return(false) 
-      #expect(Report).to receive(:generate_code).and_return(code1)
