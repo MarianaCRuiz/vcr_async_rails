@@ -20,10 +20,11 @@ describe ReportExampleJob do
   it 'queue performed job' do
     VCR.use_cassette('report_example') do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-      before_generator = Dir[Rails.root.join('spec/reports/default/*')].length
+      path = Rails.configuration.report_generator[:report_default]
+      before_generator = Dir[Rails.root.join("#{path}/*")].length
 
       expect { ReportExampleJob.perform_later }.to have_performed_job.on_queue('default')
-      expect(Dir[Rails.root.join('spec/reports/default/*')].length).to eq(before_generator + 1)
+      expect(Dir[Rails.root.join("#{path}/*")].length).to eq(before_generator + 1)
     end
   end
 

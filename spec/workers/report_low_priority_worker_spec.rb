@@ -10,10 +10,11 @@ describe ReportLowPriorityWorker do
 
   it 'worker inline' do
     Sidekiq::Testing.inline!
-    before_generator = Dir[Rails.root.join('spec/reports/low_priority/*')].length
+    path = Rails.configuration.report_generator[:report_low]
+    before_generator = Dir[Rails.root.join("#{path}/*")].length
     ReportLowPriorityWorker.perform_async
 
-    expect(Dir[Rails.root.join('spec/reports/low_priority/*')].length).to eq(before_generator + 1)
+    expect(Dir[Rails.root.join("#{path}/*")].length).to eq(before_generator + 1)
   end
 
   it 'queue' do

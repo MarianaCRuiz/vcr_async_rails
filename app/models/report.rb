@@ -11,8 +11,9 @@ class Report < ApplicationRecord
   def self.generate_code
     loop do
       @code = SecureRandom.base58(8)
-      break @code unless Report.exists?(report_code: @code)
+      break unless Report.exists?(report_code: @code)
     end
     @code
   end
+
 end

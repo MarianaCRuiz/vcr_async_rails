@@ -7,8 +7,8 @@ development:
   sleep_time_reports: 0
   sleep_time_low: 0
 test:
-  reports_folder: 'spec/reports'
-  report_default: 'spec/reports/default'
-  report_low: 'spec/reports/low_priority'
+  reports_folder: 'spec/fixtures/reports'
+  report_default: 'spec/fixtures/reports/default'
+  report_low: 'spec/fixtures/reports/low_priority'
   sleep_time_reports: 0
   sleep_time_low: 0

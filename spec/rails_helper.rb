@@ -80,8 +80,10 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
-    FileUtils.rm_rf(Dir[Rails.root.join('spec/reports/default/*')])
-    FileUtils.rm_rf(Dir[Rails.root.join('spec/reports/low_priority/*')])
+    path_default = Rails.configuration.report_generator[:report_default]
+    path_low = Rails.configuration.report_generator[:report_low]
+    FileUtils.rm_rf(Dir[Rails.root.join("#{path_default}/*")])
+    FileUtils.rm_rf(Dir[Rails.root.join("#{path_low}/*")])
   end
 
   config.before(:each) do

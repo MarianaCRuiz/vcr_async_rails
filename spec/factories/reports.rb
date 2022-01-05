@@ -1,13 +1,19 @@
 FactoryBot.define do
   factory :report do
-    sequence(:report_code) { |n| "#{(0...8).map { rand(65..90).chr }.join}#{n}" }
+    report_code { Report.generate_code }
+    report_type { 1 }
+    path = Rails.configuration.report_generator[:report_default]
+    address { Rails.root.join("#{path}/reportexample#{report_code}.html") }
+
     trait :default do
       report_type { 1 }
-      address { Rails.root.join('spec/reports/default', "reportexample#{report_code}.html") }
+      path = Rails.configuration.report_generator[:report_default]
+      address { Rails.root.join("#{path}/reportexample#{report_code}.html") }
     end
     trait :low do
       report_type { 0 }
-      address { Rails.root.join('spec/reports/default', "lowpriorityreport#{report_code}.html") }
+      path = Rails.configuration.report_generator[:report_low]
+      address { Rails.root.join("#{path}/lowpriorityreport#{report_code}.html") }
     end
   end
 end
