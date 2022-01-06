@@ -38,7 +38,8 @@ describe GenerateFile do
     context '#create_file ManageReport' do
       it '#create_file ManageReport low' do
         allow(ManageReport).to receive(:new).and_return(manage_default_report)
-        params = { full_address: anything, category: low_report.category, code: anything, name: low_report.name }
+        params = { full_address: anything, category: low_report.category,
+                   code: anything, name: low_report.name }
 
         expect(ManageReport).to receive(:new).with(**params)
         expect(ManageReport.new).to receive(:create)
@@ -50,7 +51,8 @@ describe GenerateFile do
         VCR.use_cassette('report_example') do
           ActiveJob::Base.queue_adapter = :test
           allow(ManageReport).to receive(:new).and_return(manage_default_report)
-          params = { full_address: anything, category: default_report.category, code: anything, name: default_report.name }
+          params = { full_address: anything, category: default_report.category,
+                     code: anything, name: default_report.name }
 
           expect(ManageReport).to receive(:new).with(**params)
           expect(ManageReport.new).to receive(:create)

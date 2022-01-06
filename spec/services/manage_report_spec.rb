@@ -20,7 +20,9 @@ describe ManageReport do
     it '#create default' do
       params = { address: attributes_default[:full_address], report_type: 1, report_code: attributes_default[:code] }
 
-      expect(FillDefaultReport).to receive(:writing_file).with(attributes_default[:full_address], attributes_default[:code])
+      expect(FillDefaultReport).to receive(:writing_file)
+        .with(attributes_default[:full_address], attributes_default[:code])
+
       expect(Report).to receive(:create!).with(**params)
 
       ManageReport.new(**attributes_default).create

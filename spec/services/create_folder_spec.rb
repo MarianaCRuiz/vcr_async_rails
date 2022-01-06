@@ -45,7 +45,7 @@ describe CreateFolder do
           CreateFolder.setting_report_folder(:report_low)
         end
 
-        it '.creating_folder low directory? all true' do
+        it '.creating_folder low directory? true all true' do
           allow(File).to receive(:directory?).and_return(true, true)
 
           expect(Dir).to_not receive(:mkdir).with(general_address)
@@ -54,7 +54,7 @@ describe CreateFolder do
           CreateFolder.setting_report_folder(:report_low)
         end
 
-        it '.creating_folder low directory? all false' do
+        it '.creating_folder low directory? false false' do
           allow(File).to receive(:directory?).and_return(false, false)
 
           expect(Dir).to receive(:mkdir).with(general_address)
@@ -73,7 +73,7 @@ describe CreateFolder do
           CreateFolder.setting_report_folder(:report_default)
         end
 
-        it '.creating_folder low directory? all true' do
+        it '.creating_folder low directory? true true' do
           allow(File).to receive(:directory?).and_return(true, true)
 
           expect(Dir).to_not receive(:mkdir).with(general_address)
@@ -82,7 +82,7 @@ describe CreateFolder do
           CreateFolder.setting_report_folder(:report_default)
         end
 
-        it '.creating_folder low directory? all false' do
+        it '.creating_folder low directory? false false' do
           allow(File).to receive(:directory?).and_return(false, false)
 
           expect(Dir).to receive(:mkdir).with(general_address)

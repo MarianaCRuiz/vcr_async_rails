@@ -5,7 +5,7 @@ describe FillLowReport do
   let(:attributes_low) { attributes_for(:manage_report, :low) }
 
   context 'public class methods' do
-    it { expect(FillDefaultReport).to respond_to(:writing_file) }
+    it { expect(FillLowReport).to respond_to(:writing_file) }
 
     it '.writing_file low' do
       params = attributes_low[:full_address]
@@ -18,11 +18,11 @@ describe FillLowReport do
     end
 
     it '.writing_file low generate file' do
-      before_generator = Dir[Rails.root.join("#{low_address}/*")].length
+      before_generator = Dir["#{low_address}/*"].length
 
       FillLowReport.writing_file(attributes_low[:full_address], attributes_low[:code])
 
-      expect(Dir[Rails.root.join("#{low_address}/*")].length).to eq(before_generator + 1)
+      expect(Dir["#{low_address}/*"].length).to eq(before_generator + 1)
     end
 
     it '.writing_file low content' do
