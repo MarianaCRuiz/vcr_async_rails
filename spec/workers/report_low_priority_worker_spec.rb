@@ -21,19 +21,5 @@ describe ReportLowPriorityWorker do
 
     Sidekiq::Testing.inline!
     ReportLowPriorityWorker.perform_async
-
-    # path = Rails.configuration.report_generator[:report_low]
-    # before_generator = Dir[Rails.root.join("#{path}/*")].length
-    # expect(Dir[Rails.root.join("#{path}/*")].length).to eq(before_generator + 1)
   end
-
-  # it 'content' do
-  #   Sidekiq::Testing.inline!
-  #   ReportLowPriorityWorker.perform_async
-  #   data = File.open(Report.last.address)
-  #   lines = data.readlines.map(&:chomp)
-  #   data.close
-
-  #   expect(lines[0]).to match(/Your Low Priority Report Here/)
-  # end
 end

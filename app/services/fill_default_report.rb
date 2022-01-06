@@ -1,7 +1,7 @@
 class FillDefaultReport
-  def self.writing_file(address, code)
+  def self.writing_file(full_address, code)
     data_source
-    @out_file = File.new(address, 'w')
+    @out_file = File.new(full_address, 'w')
     @out_file.puts("<p>Your ReportExample Here - code: <b>#{code}</b></p>")
     @out_file.puts("<p>Titulo - #{@parsed[:title]}</b></p>")
     @out_file.puts("<p>Conteudo - #{@parsed[:body]}</p>")
