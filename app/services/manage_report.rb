@@ -1,8 +1,7 @@
-class CreateReports
+class ManageReport
   REPORT_CATEGORIES = { report_low: { report_type: 0, klass: FillLowReport },
                         report_default: { report_type: 1, klass: FillDefaultReport } }.freeze
-
-  attr_accessor :address, :code, :category
+  attr_accessor :address, :category, :code
 
   def initialize(**params)
     @address = params[:address]

@@ -3,6 +3,7 @@ class ReportExampleJob < ApplicationJob
 
   def perform(*_args)
     sleep(Rails.configuration.report_generator[:sleep_time_reports])
-    GenerateFile.building_report_file(name: 'reportexample', category: :report_default)
+    name = Rails.configuration.report_generator[:default_name]
+    GenerateFile.new(name: name, category: :report_default).create_file
   end
 end

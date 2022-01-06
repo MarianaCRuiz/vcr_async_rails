@@ -4,6 +4,7 @@ class ReportLowPriorityWorker
 
   def perform(*_args)
     sleep(Rails.configuration.report_generator[:sleep_time_low])
-    GenerateFile.building_report_file(name: 'lowpriorityreport', category: :report_low)
+    name = Rails.configuration.report_generator[:low_name]
+    GenerateFile.new(name: name, category: :report_low).create_file
   end
 end

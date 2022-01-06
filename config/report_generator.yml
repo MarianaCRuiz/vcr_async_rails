@@ -4,11 +4,15 @@ development:
   reports_folder: 'public/reports'
   report_default: 'public/reports/default'
   report_low: 'public/reports/low_priority'
+  default_name: 'reportexample'
+  low_name: 'lowpriorityreport'
   sleep_time_reports: 0
   sleep_time_low: 0
 test:
   reports_folder: 'spec/fixtures/reports'
   report_default: 'spec/fixtures/reports/default'
   report_low: 'spec/fixtures/reports/low_priority'
+  default_name: 'reportexample'
+  low_name: 'lowpriorityreport'
   sleep_time_reports: 0
   sleep_time_low: 0

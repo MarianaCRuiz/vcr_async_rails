@@ -5,8 +5,8 @@ class CreateFolder
     @report_path
   end
 
-  def self.creating_folder(type_of_report)
-    @report_path = Rails.root.join(Rails.configuration.report_generator[type_of_report])
+  def self.creating_folder(category)
+    @report_path = Rails.root.join(Rails.configuration.report_generator[category])
     Dir.mkdir(@report_path) unless File.directory?(@report_path)
   end
 end
