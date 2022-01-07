@@ -11,11 +11,9 @@
 # even put in dynamic logic, like a host-specific queue.   - <%= `hostname`.strip %>
 # http://www.mikeperham.com/2013/11/13/advanced-sidekiq-host-specific-queues/
 :queues:
+  - critical
   - default
   - low
-
-# - critical
-# - default
 
 # you can override concurrency based on environment
 production:

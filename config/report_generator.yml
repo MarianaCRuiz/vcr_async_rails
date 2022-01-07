@@ -2,17 +2,23 @@
 production:
 development:
   reports_folder: 'public/reports'
+  report_critical: 'public/reports/critical'
   report_default: 'public/reports/default'
   report_low: 'public/reports/low_priority'
+  critical_name: 'criticalpriorityreport'
   default_name: 'reportexample'
   low_name: 'lowpriorityreport'
-  sleep_time_reports: 0
-  sleep_time_low: 0
+  sleep_time_critical: 10
+  sleep_time_reports: 10
+  sleep_time_low: 10
 test:
   reports_folder: 'spec/fixtures/reports'
+  report_critical: 'spec/fixtures/reports/critical'
   report_default: 'spec/fixtures/reports/default'
   report_low: 'spec/fixtures/reports/low_priority'
   default_name: 'reportexample'
+  critical_name: 'criticalpriorityreport'
   low_name: 'lowpriorityreport'
+  sleep_time_critical: 0
   sleep_time_reports: 0
   sleep_time_low: 0

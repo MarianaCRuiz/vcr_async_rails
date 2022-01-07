@@ -5,7 +5,7 @@
 ### This is a rails application created with a didactic purpose. The goal was to build and analyse asynchron processing in rails. It was used sidekiq as the job runner.
 
 * Ruby version 3.0.3
-* Rails version "~> 7.0.0"
+* Rails version ">= 6.1.4.4"
 * Docker Compose version 3.8
 * Node version 16
 
@@ -39,8 +39,7 @@
     - enter 'exit' to close the container terminal
   - To execute the application:
     - run docker-compose up, in the computer terminal
-    - go to your browser, access http://localhost:3000/reports
-    - see the reports or click in 'Gerar Novo'
+    - go to your browser, access http://localhost:3000
 
 * How to run the test suite
   - rspec

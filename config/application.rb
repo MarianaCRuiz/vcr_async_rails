@@ -38,5 +38,7 @@ module VcrAsyncRails
     config.active_job.queue_adapter = :sidekiq
 
     config.report_generator = config_for(:report_generator)
+
+    # config.web_console.whiny_requests = false
   end
 end

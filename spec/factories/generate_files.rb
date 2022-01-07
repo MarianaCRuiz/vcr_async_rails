@@ -10,5 +10,9 @@ FactoryBot.define do
       category { :report_low }
       name { Rails.configuration.report_generator[:low_name] }
     end
+    trait :critical do
+      category { :report_critical }
+      name { Rails.configuration.report_generator[:critical_name] }
+    end
   end
 end

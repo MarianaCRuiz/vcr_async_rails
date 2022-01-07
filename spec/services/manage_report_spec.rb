@@ -36,6 +36,8 @@ describe ManageReport do
 
       ManageReport.new(**attributes_low).create
     end
+    xit '.destroy_all_files'
+    xit '.destroy_file'
   end
 
   context 'private instance methods' do

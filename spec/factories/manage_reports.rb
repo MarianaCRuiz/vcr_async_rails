@@ -21,5 +21,12 @@ FactoryBot.define do
       category { :report_low }
       full_address { Rails.root.join("#{path2}/#{name2}#{code}.html") }
     end
+    trait :critical do
+      name3 = Rails.configuration.report_generator[:critical_name]
+      path3 = Rails.configuration.report_generator[:report_critical]
+
+      category { :report_critical }
+      full_address { Rails.root.join("#{path3}/#{name3}#{code}.html") }
+    end
   end
 end

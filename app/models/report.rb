@@ -1,9 +1,10 @@
 class Report < ApplicationRecord
-  enum report_type: { low_priority: 0, default_priority: 1 }
+  enum report_type: { low_priority: 0, default_priority: 1, critical_priority: 2 }
   validates :address, :report_type, :report_code, presence: true
   validates :report_code, uniqueness: true
 
   def self.generator
+    ReportCriticalJob.perform_later
     ReportExampleJob.perform_later
     ReportLowPriorityWorker.perform_async
   end

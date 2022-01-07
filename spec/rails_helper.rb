@@ -80,8 +80,10 @@ RSpec.configure do |config|
   end
 
   config.after(:each) do
+    path_critical = Rails.configuration.report_generator[:report_critical]
     path_default = Rails.configuration.report_generator[:report_default]
     path_low = Rails.configuration.report_generator[:report_low]
+    FileUtils.rm_rf(Dir[Rails.root.join("#{path_critical}/*")])
     FileUtils.rm_rf(Dir[Rails.root.join("#{path_default}/*")])
     FileUtils.rm_rf(Dir[Rails.root.join("#{path_low}/*")])
   end
