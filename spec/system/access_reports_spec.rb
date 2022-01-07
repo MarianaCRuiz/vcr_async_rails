@@ -2,16 +2,14 @@ require 'rails_helper'
 
 describe 'Accessing Reports' do
   before(:each) do
-    VCR.insert_cassette('critical_report_example')
-    VCR.insert_cassette('report_example')
+    VCR.use_cassette('critical_report_example') do
+      ReportCriticalJob.perform_now
+    end
+    VCR.use_cassette('report_example') do
+      ReportExampleJob.perform_now
+    end
     Sidekiq::Testing.inline!
-    ReportCriticalJob.perform_now
-    ReportExampleJob.perform_now
     ReportLowPriorityWorker.perform_async
-  end
-  after(:each) do
-    VCR.eject_cassette
-    VCR.eject_cassette
   end
   it 'Reports #index' do
     visit root_path

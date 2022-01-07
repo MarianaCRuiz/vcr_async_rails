@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe FileManager do
+  include ActiveJob::TestHelper
+  let(:path_reports) { Rails.configuration.report_generator[:reports_folder] }
+  let(:path_default) { Rails.configuration.report_generator[:report_default] }
+  let(:path_low) { Rails.configuration.report_generator[:report_low] }
+  let(:path_critical) { Rails.configuration.report_generator[:report_critical] }
   let(:critical_address) { Rails.root.join(Rails.configuration.report_generator[:report_critical]) }
   let(:default_address) { Rails.root.join(Rails.configuration.report_generator[:report_default]) }
   let(:low_address) { Rails.root.join(Rails.configuration.report_generator[:report_low]) }
@@ -13,6 +18,8 @@ describe FileManager do
 
   context 'public class methods' do
     it { expect(FileManager).to respond_to(:new) }
+    it { expect(FileManager).to respond_to(:destroy_all_files) }
+    it { expect(FileManager).to respond_to(:destroy_file) }
 
     context '.new FolderManager' do
       it '.new FolderManager low' do
@@ -43,8 +50,53 @@ describe FileManager do
         end
       end
     end
-    xit '.destroy_all_files'
-    xit '.destroy_file'
+    it '.destroy_all_files' do
+      VCR.use_cassette('critical_report_example') do
+        ReportCriticalJob.perform_now
+      end
+      VCR.use_cassette('report_example') do
+        ReportExampleJob.perform_now
+      end
+      Sidekiq::Testing.inline!
+      ReportLowPriorityWorker.perform_async
+      before_destroy = Dir[Rails.root.join("#{path_reports}/**/*.html")].length
+
+      FileManager.destroy_all_files
+
+      expect(Dir[Rails.root.join("#{path_reports}/**/*.html")].length).to eq(before_destroy - 3)
+    end
+
+    it '.destroy_file critical' do
+      VCR.use_cassette('critical_report_example') do
+        ReportCriticalJob.perform_now
+      end
+      before_destroy = Dir[Rails.root.join("#{path_critical}/*.html")].length
+
+      FileManager.destroy_file(Report.last)
+
+      expect(Dir[Rails.root.join("#{path_critical}/*")].length).to eq(before_destroy - 1)
+    end
+
+    it '.destroy_file default' do
+      VCR.use_cassette('report_example') do
+        ReportExampleJob.perform_now
+      end
+      before_destroy = Dir[Rails.root.join("#{path_default}/*.html")].length
+
+      FileManager.destroy_file(Report.last)
+
+      expect(Dir[Rails.root.join("#{path_default}/*")].length).to eq(before_destroy - 1)
+    end
+
+    it '.destroy_file low' do
+      Sidekiq::Testing.inline!
+      ReportLowPriorityWorker.perform_async
+      before_destroy = Dir[Rails.root.join("#{path_low}/*.html")].length
+
+      FileManager.destroy_file(Report.last)
+
+      expect(Dir[Rails.root.join("#{path_low}/*")].length).to eq(before_destroy - 1)
+    end
   end
 
   context 'public instance methods' do
