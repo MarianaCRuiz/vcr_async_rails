@@ -7,7 +7,7 @@ class DefaultReportGenerator
     @out_file.puts("<p>Titulo - #{@parsed[:title]}</b></p>")
     @out_file.puts("<p>Conteudo - #{@parsed[:body]}</p>")
     @out_file.close
-    @out_file
+    true
   end
 
   def self.data_source

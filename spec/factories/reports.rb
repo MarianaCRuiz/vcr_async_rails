@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :report do
     report_code { Report.generate_code }
     report_type { 1 }
+    file_condition { 100 }
     path = Rails.configuration.report_generator[:report_default]
     name = Rails.configuration.report_generator[:default_name]
     address { Rails.root.join("#{path}/#{name}#{report_code}.html") }
@@ -20,6 +21,12 @@ FactoryBot.define do
       path2 = Rails.configuration.report_generator[:report_critical]
       name2 = Rails.configuration.report_generator[:critical_name]
       address { Rails.root.join("#{path2}/#{name2}#{report_code}.html") }
+    end
+    trait :failure do
+      file_condition { 10 }
+    end
+    trait :success do
+      file_condition { 100 }
     end
   end
 end

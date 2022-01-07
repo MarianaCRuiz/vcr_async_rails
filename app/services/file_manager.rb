@@ -10,7 +10,8 @@ class FileManager
   end
 
   def create_file
-    ReportContentManager.new(full_address: full_address, code: code, category: category, name: name).create
+    params = { full_address: full_address, code: code, category: category, name: name }
+    ReportContentManager.new(**params).create
   end
 
   def self.destroy_file(report)

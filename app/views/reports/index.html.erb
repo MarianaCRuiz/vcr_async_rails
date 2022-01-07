@@ -16,7 +16,11 @@
   <ol> 
     <% @critical_reports.each do |report| %> 
       <div id="list_critical_reports">
-        <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
+        <% if report.success? %>
+          <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
+        <% elsif report.failure? %>
+          <li>FALHA</li>
+        <% end %>
         <ul>
           <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' } %></li>
         </ul> <br>
@@ -29,7 +33,11 @@
   <ol> 
     <% @default_reports.each do |report| %> 
       <div id="list_reports">
-        <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
+        <% if report.success? %>
+          <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
+        <% elsif report.failure? %>
+          <li>FALHA</li>
+        <% end %>
         <ul>
           <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' } %></li>
         </ul> <br>
@@ -42,7 +50,11 @@
   <ol> 
     <% @low_priority_reports.each do |report| %>
       <div id="list_low_reports">
-        <li><%= link_to(report.address.split('/').last, "/reports/low_priority/#{report.address.split('/').last}", target: "_blank") %></li>
+        <% if report.success? %>
+          <li><%= link_to(report.address.split('/').last, "/reports/low_priority/#{report.address.split('/').last}", target: "_blank") %></li>
+        <% elsif report.failure? %>
+          <li>FALHA</li>
+        <% end %>
         <ul>
           <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' } %></li>
         </ul> <br>
