@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 describe GenerateFile do
+  let(:critical_address) { Rails.root.join(Rails.configuration.report_generator[:report_critical]) }
   let(:default_address) { Rails.root.join(Rails.configuration.report_generator[:report_default]) }
   let(:low_address) { Rails.root.join(Rails.configuration.report_generator[:report_low]) }
+  let(:critical_report) { build(:generate_file, :critical) }
   let(:default_report) { build(:generate_file, :default) }
   let(:low_report) { build(:generate_file, :low) }
+  let(:manage_critical_report) { build(:manage_report, :critical) }
   let(:manage_default_report) { build(:manage_report, :default) }
   let(:manage_low_report) { build(:generate_file, :low) }
 
@@ -27,6 +30,16 @@ describe GenerateFile do
           expect(CreateFolder).to receive(:setting_report_folder).with(default_report.category)
 
           GenerateFile.new(name: default_report.name, category: default_report.category)
+        end
+      end
+
+      it '.new CreateFolder critical' do
+        VCR.use_cassette('critical_report_example') do
+          allow(CreateFolder).to receive(:setting_report_folder).and_return(critical_address)
+
+          expect(CreateFolder).to receive(:setting_report_folder).with(critical_report.category)
+
+          GenerateFile.new(name: critical_report.name, category: critical_report.category)
         end
       end
     end
@@ -58,6 +71,20 @@ describe GenerateFile do
           expect(ManageReport.new).to receive(:create)
 
           GenerateFile.new(name: default_report.name, category: default_report.category).create_file
+        end
+      end
+
+      it '#create_file ManageReport critical' do
+        VCR.use_cassette('critical_report_example') do
+          ActiveJob::Base.queue_adapter = :test
+          allow(ManageReport).to receive(:new).and_return(manage_critical_report)
+          params = { full_address: anything, category: critical_report.category,
+                     code: anything, name: critical_report.name }
+
+          expect(ManageReport).to receive(:new).with(**params)
+          expect(ManageReport.new).to receive(:create)
+
+          GenerateFile.new(name: critical_report.name, category: critical_report.category).create_file
         end
       end
     end

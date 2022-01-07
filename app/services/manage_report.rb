@@ -20,10 +20,8 @@ class ManageReport
   end
 
   def self.destroy_all_files
-    Dir[Rails.root.join('spec/fixtures/reports', '**', '*.html')].each { |f| FileUtils.rm_rf(f) }
-    # FileUtils.rm_rf(Dir[Rails.root.join("#{Rails.configuration.report_generator[:report_critical]}/*")])
-    # FileUtils.rm_rf(Dir[Rails.root.join("#{Rails.configuration.report_generator[:report_default]}/*")])
-    # FileUtils.rm_rf(Dir[Rails.root.join("#{Rails.configuration.report_generator[:report_low]}/*")])
+    path = Rails.configuration.report_generator[:reports_folder]
+    Dir[Rails.root.join("#{path}/**/*.html")].each { |f| FileUtils.rm_rf(f) }
   end
 
   private

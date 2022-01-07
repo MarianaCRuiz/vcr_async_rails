@@ -7,9 +7,9 @@
           1,
           null,
           1,
-          4,
-          4,
-          4,
+          8,
+          8,
+          8,
           null,
           null
         ]
@@ -25,21 +25,15 @@
           null
         ]
       },
-      "/opt/app/app/services/generate_file.rb": {
+      "/opt/app/app/jobs/report_example_job.rb": {
         "lines": [
           1,
           1,
           null,
           1,
-          12,
-          12,
-          12,
-          12,
-          12,
-          null,
-          null,
-          1,
-          12,
+          8,
+          8,
+          8,
           null,
           null
         ]
@@ -52,17 +46,17 @@
           1,
           null,
           1,
-          0,
-          0,
-          0,
+          3,
+          3,
+          3,
           null,
           null,
           1,
-          12,
-          12,
-          12,
+          69,
+          72,
+          72,
           null,
-          12,
+          69,
           null,
           null
         ]
@@ -71,13 +65,82 @@
         "lines": [
           1,
           1,
-          12,
-          12,
-          12,
+          43,
+          43,
+          43,
           null,
           null,
           1,
-          24,
+          80,
+          80,
+          null,
+          null
+        ]
+      },
+      "/opt/app/app/services/fill_critical_report.rb": {
+        "lines": [
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          null,
+          null,
+          1,
+          12,
+          12,
+          null,
+          null
+        ]
+      },
+      "/opt/app/app/services/fill_default_report.rb": {
+        "lines": [
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          null,
+          null,
+          1,
+          12,
+          12,
+          null,
+          null
+        ]
+      },
+      "/opt/app/app/services/fill_low_report.rb": {
+        "lines": [
+          1,
+          1,
+          10,
+          10,
+          10,
+          10,
+          null,
+          null
+        ]
+      },
+      "/opt/app/app/services/generate_file.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          37,
+          37,
+          37,
+          37,
+          37,
+          null,
+          null,
+          1,
           24,
           null,
           null
@@ -92,14 +155,14 @@
           1,
           null,
           1,
-          12,
-          12,
-          12,
+          34,
+          34,
+          34,
           null,
           null,
           1,
-          12,
-          12,
+          24,
+          24,
           null,
           null,
           1,
@@ -107,83 +170,18 @@
           null,
           null,
           1,
+          1,
           4,
-          null,
-          null,
-          null,
           null,
           null,
           1,
           null,
           1,
-          12,
+          27,
           null,
           null,
           1,
-          12,
-          null,
-          null
-        ]
-      },
-      "/opt/app/app/services/fill_low_report.rb": {
-        "lines": [
-          1,
-          1,
-          4,
-          4,
-          4,
-          4,
-          null,
-          null
-        ]
-      },
-      "/opt/app/app/services/fill_default_report.rb": {
-        "lines": [
-          1,
-          1,
-          4,
-          4,
-          4,
-          4,
-          4,
-          4,
-          null,
-          null,
-          1,
-          4,
-          4,
-          null,
-          null
-        ]
-      },
-      "/opt/app/app/services/fill_critical_report.rb": {
-        "lines": [
-          1,
-          1,
-          4,
-          4,
-          4,
-          4,
-          4,
-          4,
-          null,
-          null,
-          1,
-          4,
-          4,
-          null,
-          null
-        ]
-      },
-      "/opt/app/app/jobs/report_example_job.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          4,
-          4,
-          4,
+          27,
           null,
           null
         ]
@@ -195,9 +193,9 @@
           1,
           null,
           1,
-          4,
-          4,
-          4,
+          8,
+          8,
+          8,
           null,
           null
         ]
@@ -222,8 +220,8 @@
           1,
           null,
           1,
-          0,
-          0,
+          1,
+          1,
           null,
           null,
           1,
@@ -242,15 +240,15 @@
           1,
           null,
           1,
-          8,
-          8,
-          8,
-          8,
+          13,
+          13,
+          13,
+          13,
           null,
           null
         ]
       }
     },
-    "timestamp": 1641519954
+    "timestamp": 1641520924
   }
 }
