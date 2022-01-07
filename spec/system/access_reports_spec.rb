@@ -28,6 +28,7 @@ describe 'Accessing Reports' do
     visit root_path
     click_on 'Relatórios'
     click_on 'Gerar Novo'
+
     expect(page).to have_content('Estamos processando seu relatório \\o/')
   end
 end

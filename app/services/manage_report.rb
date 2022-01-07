@@ -11,7 +11,9 @@ class ManageReport
   end
 
   def create
-    klass.writing_file(full_address, code)
+    written_file = klass.writing_file(full_address, code)
+    return unless written_file
+
     Report.create!(address: full_address, report_type: report_type, report_code: code)
   end
 

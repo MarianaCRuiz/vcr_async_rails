@@ -20,6 +20,7 @@ describe ManageReport do
 
     it '#create critical' do
       params = { address: attributes_critical[:full_address], report_type: 2, report_code: attributes_critical[:code] }
+      allow(FillCriticalReport).to receive(:writing_file).and_return(true)
 
       expect(FillCriticalReport).to receive(:writing_file)
         .with(attributes_critical[:full_address], attributes_critical[:code])
@@ -31,6 +32,7 @@ describe ManageReport do
 
     it '#create default' do
       params = { address: attributes_default[:full_address], report_type: 1, report_code: attributes_default[:code] }
+      allow(FillDefaultReport).to receive(:writing_file).and_return(true)
 
       expect(FillDefaultReport).to receive(:writing_file)
         .with(attributes_default[:full_address], attributes_default[:code])
@@ -42,6 +44,7 @@ describe ManageReport do
 
     it '#create low' do
       params = { address: attributes_low[:full_address], report_type: 0, report_code: attributes_low[:code] }
+      allow(FillLowReport).to receive(:writing_file).and_return(true)
 
       expect(FillLowReport).to receive(:writing_file).with(attributes_low[:full_address], attributes_low[:code])
       expect(Report).to receive(:create!).with(**params)

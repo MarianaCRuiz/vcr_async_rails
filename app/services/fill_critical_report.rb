@@ -1,12 +1,13 @@
 class FillCriticalReport
   def self.writing_file(full_address, code)
-    if data_source
-      @out_file = File.new(full_address, 'w')
-      @out_file.puts("<p>Your CriticalReportExample Here - code: <b>#{code}</b></p>")
-      @out_file.puts("<p>Titulo - #{@parsed[:title]}</b></p>")
-      @out_file.puts("<p>Conteudo - #{@parsed[:body]}</p>")
-      @out_file.close
-    end
+    return false unless data_source
+
+    @out_file = File.new(full_address, 'w')
+    @out_file.puts("<p>Your CriticalReportExample Here - code: <b>#{code}</b></p>")
+    @out_file.puts("<p>Titulo - #{@parsed[:title]}</b></p>")
+    @out_file.puts("<p>Conteudo - #{@parsed[:body]}</p>")
+    @out_file.close
+    @out_file
   end
 
   def self.data_source
