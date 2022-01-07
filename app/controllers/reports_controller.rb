@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   def index; end
 
   def create
-    Report.generator
+    AsyncReportGenerator.create
     redirect_to reports_path, notice: 'Estamos processando seu relatório \\o/'
   end
 

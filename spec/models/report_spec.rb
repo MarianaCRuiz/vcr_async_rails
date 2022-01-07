@@ -14,15 +14,7 @@ describe Report do
     it { should validate_uniqueness_of(:report_code) }
   end
   context 'public class methods' do
-    it { expect(Report).to respond_to(:generator) }
     it { expect(Report).to respond_to(:generate_code) }
-
-    it '.generator' do
-      ActiveJob::Base.queue_adapter = :test
-      expect { Report.generator }.to have_enqueued_job.on_queue('critical')
-      expect { Report.generator }.to have_enqueued_job.on_queue('default')
-      expect { Report.generator }.to change(ReportLowPriorityWorker.jobs, :size).by(1)
-    end
 
     it '.generate_code once' do
       code = attributes_for(:report, :default)[:report_code]

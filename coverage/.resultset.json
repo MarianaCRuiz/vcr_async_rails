@@ -46,17 +46,22 @@
           1,
           null,
           1,
-          4,
-          4,
-          4,
+          70,
+          73,
+          73,
           null,
+          70,
           null,
+          null
+        ]
+      },
+      "/opt/app/app/services/async_report_generator.rb": {
+        "lines": [
           1,
-          70,
-          73,
-          73,
-          null,
-          70,
+          1,
+          4,
+          4,
+          4,
           null,
           null
         ]
@@ -258,6 +263,6 @@
         ]
       }
     },
-    "timestamp": 1641567462
+    "timestamp": 1641568117
   }
 }

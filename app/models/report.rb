@@ -3,12 +3,6 @@ class Report < ApplicationRecord
   validates :address, :report_type, :report_code, presence: true
   validates :report_code, uniqueness: true
 
-  def self.generator
-    ReportCriticalJob.perform_later
-    ReportExampleJob.perform_later
-    ReportLowPriorityWorker.perform_async
-  end
-
   def self.generate_code
     loop do
       @code = SecureRandom.base58(8)
