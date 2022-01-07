@@ -49,7 +49,7 @@ describe FillDefaultReport do
         VCR.use_cassette('report_example') do
           response = FillDefaultReport.data_source
 
-          expect(response.class).to eq(Hash)
+          expect(response.class).to eq(TrueClass)
         end
       end
       it '.data_source Farady' do

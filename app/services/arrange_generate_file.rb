@@ -1,4 +1,4 @@
-class GenerateFile
+class ArrangeGenerateFile
   attr_accessor :full_address, :category, :code, :name
 
   def initialize(name: 'reportexample', category: :report_default)

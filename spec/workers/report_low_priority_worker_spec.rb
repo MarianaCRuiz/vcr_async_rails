@@ -12,12 +12,12 @@ describe ReportLowPriorityWorker do
     expect(ReportLowPriorityWorker.new).to respond_to(:perform)
   end
 
-  it 'call GenerateFile' do
-    attributes = attributes_for(:generate_file, :low)
-    allow(GenerateFile).to receive(:new).and_return(GenerateFile.new(**attributes))
+  it 'call ArrangeGenerateFile' do
+    attributes = attributes_for(:arrange_generate_file, :low)
+    allow(ArrangeGenerateFile).to receive(:new).and_return(ArrangeGenerateFile.new(**attributes))
 
-    expect(GenerateFile).to receive(:new).with(**attributes)
-    expect(GenerateFile.new).to receive(:create_file)
+    expect(ArrangeGenerateFile).to receive(:new).with(**attributes)
+    expect(ArrangeGenerateFile.new).to receive(:create_file)
 
     Sidekiq::Testing.inline!
     ReportLowPriorityWorker.perform_async

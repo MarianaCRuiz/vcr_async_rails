@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe Report do
   it 'has a valid factory' do
+    expect(build(:report, :critical)).to be_valid
     expect(build(:report, :default)).to be_valid
     expect(build(:report, :low)).to be_valid
     expect(build(:report)).to be_valid
@@ -18,6 +19,7 @@ describe Report do
 
     it '.generator' do
       ActiveJob::Base.queue_adapter = :test
+      expect { Report.generator }.to have_enqueued_job.on_queue('critical')
       expect { Report.generator }.to have_enqueued_job.on_queue('default')
       expect { Report.generator }.to change(ReportLowPriorityWorker.jobs, :size).by(1)
     end
