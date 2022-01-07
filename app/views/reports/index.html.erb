@@ -15,7 +15,7 @@
   <h3>Relatórios Alta Prioridade</h3>
   <ol> 
     <% @critical_reports.each do |report| %> 
-      <div id="list_reports">
+      <div id="list_critical_reports">
         <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
         <ul>
           <li><%= link_to 'Deletar Relatório', report_path(report), method: :delete, data: { confirm: 'Are you sure?' } %></li>
