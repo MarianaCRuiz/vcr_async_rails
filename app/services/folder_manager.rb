@@ -1,4 +1,4 @@
-class CreateFolder
+class FolderManager
   def self.setting_report_folder(category)
     creating_folder(:reports_folder)
     creating_folder(category)

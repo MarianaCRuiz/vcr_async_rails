@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2022-01-07T14:55:07+00:00">2022-01-07T14:55:07+00:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2022-01-07T14:57:42+00:00">2022-01-07T14:57:42+00:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -148,17 +148,6 @@
           </tr>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#10d34c261970cbf32c569bcc018c264fe22d2607" class="src_link" title="app/services/create_folder.rb">app/services/create_folder.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">12</td>
-            <td class="cell--number">8</td>
-            <td class="cell--number">8</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">36.50</td>
-            
-          </tr>
-        
-          <tr class="t-file">
             <td class="strong t-file__name"><a href="#c1e35d3d84e47ab8fd3e459cc1d8c8219f5fdc3e" class="src_link" title="app/services/critical_report_generator.rb">app/services/critical_report_generator.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
             <td class="cell--number">18</td>
@@ -188,6 +177,17 @@
             <td class="cell--number">15</td>
             <td class="cell--number">0</td>
             <td class="cell--number">14.87</td>
+            
+          </tr>
+        
+          <tr class="t-file">
+            <td class="strong t-file__name"><a href="#e1cbbe26724d6a697eb34df801b1437207b0f75e" class="src_link" title="app/services/folder_manager.rb">app/services/folder_manager.rb</a></td>
+            <td class="green strong cell--number t-file__coverage">100.00 %</td>
+            <td class="cell--number">12</td>
+            <td class="cell--number">8</td>
+            <td class="cell--number">8</td>
+            <td class="cell--number">0</td>
+            <td class="cell--number">36.50</td>
             
           </tr>
         
@@ -778,17 +778,6 @@
       <tbody>
         
           <tr class="t-file">
-            <td class="strong t-file__name"><a href="#10d34c261970cbf32c569bcc018c264fe22d2607" class="src_link" title="app/services/create_folder.rb">app/services/create_folder.rb</a></td>
-            <td class="green strong cell--number t-file__coverage">100.00 %</td>
-            <td class="cell--number">12</td>
-            <td class="cell--number">8</td>
-            <td class="cell--number">8</td>
-            <td class="cell--number">0</td>
-            <td class="cell--number">36.50</td>
-            
-          </tr>
-        
-          <tr class="t-file">
             <td class="strong t-file__name"><a href="#c1e35d3d84e47ab8fd3e459cc1d8c8219f5fdc3e" class="src_link" title="app/services/critical_report_generator.rb">app/services/critical_report_generator.rb</a></td>
             <td class="green strong cell--number t-file__coverage">100.00 %</td>
             <td class="cell--number">18</td>
@@ -818,6 +807,17 @@
             <td class="cell--number">15</td>
             <td class="cell--number">0</td>
             <td class="cell--number">14.87</td>
+            
+          </tr>
+        
+          <tr class="t-file">
+            <td class="strong t-file__name"><a href="#e1cbbe26724d6a697eb34df801b1437207b0f75e" class="src_link" title="app/services/folder_manager.rb">app/services/folder_manager.rb</a></td>
+            <td class="green strong cell--number t-file__coverage">100.00 %</td>
+            <td class="cell--number">12</td>
+            <td class="cell--number">8</td>
+            <td class="cell--number">8</td>
+            <td class="cell--number">0</td>
+            <td class="cell--number">36.50</td>
             
           </tr>
         
@@ -1956,169 +1956,6 @@
 </div>
 
       
-        <div class="source_table" id="10d34c261970cbf32c569bcc018c264fe22d2607">
-  <div class="header">
-    <h3>app/services/create_folder.rb</h3>
-    <h4>
-      <span class="green">
-  100.0%
-</span>
-
-      lines covered
-    </h4>
-
-    
-
-    <div class="t-line-summary">
-      <b>8</b> relevant lines.
-      <span class="green"><b>8</b> lines covered</span> and
-      <span class="red"><b>0</b> lines missed.</span>
-    </div>
-
-    
-
-  </div>
-
-  <pre>
-    <ol>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="1">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">class CreateFolder</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="2">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def self.setting_report_folder(category)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="43" data-linenumber="3">
-            <span class="hits">43</span>
-            
-
-            
-
-            <code class="ruby">    creating_folder(:reports_folder)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="43" data-linenumber="4">
-            <span class="hits">43</span>
-            
-
-            
-
-            <code class="ruby">    creating_folder(category)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="43" data-linenumber="5">
-            <span class="hits">43</span>
-            
-
-            
-
-            <code class="ruby">    @report_path</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="6">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="7">
-            
-            
-
-            
-
-            <code class="ruby"></code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="1" data-linenumber="8">
-            <span class="hits">1</span>
-            
-
-            
-
-            <code class="ruby">  def self.creating_folder(category)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="80" data-linenumber="9">
-            <span class="hits">80</span>
-            
-
-            
-
-            <code class="ruby">    @report_path = Rails.root.join(Rails.configuration.report_generator[category])</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="covered" data-hits="80" data-linenumber="10">
-            <span class="hits">80</span>
-            
-
-            
-
-            <code class="ruby">    Dir.mkdir(@report_path) unless File.directory?(@report_path)</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="11">
-            
-            
-
-            
-
-            <code class="ruby">  end</code>
-          </li>
-        </div>
-      
-        <div>
-          <li class="never" data-hits="" data-linenumber="12">
-            
-            
-
-            
-
-            <code class="ruby">end</code>
-          </li>
-        </div>
-      
-    </ol>
-  </pre>
-</div>
-
-      
         <div class="source_table" id="c1e35d3d84e47ab8fd3e459cc1d8c8219f5fdc3e">
   <div class="header">
     <h3>app/services/critical_report_generator.rb</h3>
@@ -2687,7 +2524,7 @@
 
             
 
-            <code class="ruby">    @report_path = CreateFolder.setting_report_folder(category)</code>
+            <code class="ruby">    @report_path = FolderManager.setting_report_folder(category)</code>
           </li>
         </div>
       
@@ -2858,6 +2695,169 @@
       
         <div>
           <li class="never" data-hits="" data-linenumber="24">
+            
+            
+
+            
+
+            <code class="ruby">end</code>
+          </li>
+        </div>
+      
+    </ol>
+  </pre>
+</div>
+
+      
+        <div class="source_table" id="e1cbbe26724d6a697eb34df801b1437207b0f75e">
+  <div class="header">
+    <h3>app/services/folder_manager.rb</h3>
+    <h4>
+      <span class="green">
+  100.0%
+</span>
+
+      lines covered
+    </h4>
+
+    
+
+    <div class="t-line-summary">
+      <b>8</b> relevant lines.
+      <span class="green"><b>8</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
+    </div>
+
+    
+
+  </div>
+
+  <pre>
+    <ol>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="1">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">class FolderManager</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="2">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def self.setting_report_folder(category)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="43" data-linenumber="3">
+            <span class="hits">43</span>
+            
+
+            
+
+            <code class="ruby">    creating_folder(:reports_folder)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="43" data-linenumber="4">
+            <span class="hits">43</span>
+            
+
+            
+
+            <code class="ruby">    creating_folder(category)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="43" data-linenumber="5">
+            <span class="hits">43</span>
+            
+
+            
+
+            <code class="ruby">    @report_path</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="6">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="7">
+            
+            
+
+            
+
+            <code class="ruby"></code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="1" data-linenumber="8">
+            <span class="hits">1</span>
+            
+
+            
+
+            <code class="ruby">  def self.creating_folder(category)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="80" data-linenumber="9">
+            <span class="hits">80</span>
+            
+
+            
+
+            <code class="ruby">    @report_path = Rails.root.join(Rails.configuration.report_generator[category])</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="covered" data-hits="80" data-linenumber="10">
+            <span class="hits">80</span>
+            
+
+            
+
+            <code class="ruby">    Dir.mkdir(@report_path) unless File.directory?(@report_path)</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="11">
+            
+            
+
+            
+
+            <code class="ruby">  end</code>
+          </li>
+        </div>
+      
+        <div>
+          <li class="never" data-hits="" data-linenumber="12">
             
             
 

@@ -14,30 +14,30 @@ describe FileManager do
   context 'public class methods' do
     it { expect(FileManager).to respond_to(:new) }
 
-    context '.new CreateFolder' do
-      it '.new CreateFolder low' do
-        allow(CreateFolder).to receive(:setting_report_folder).and_return(low_address)
+    context '.new FolderManager' do
+      it '.new FolderManager low' do
+        allow(FolderManager).to receive(:setting_report_folder).and_return(low_address)
 
-        expect(CreateFolder).to receive(:setting_report_folder).with(low_report.category)
+        expect(FolderManager).to receive(:setting_report_folder).with(low_report.category)
 
         FileManager.new(name: low_report.name, category: low_report.category)
       end
 
-      it '.new CreateFolder default' do
+      it '.new FolderManager default' do
         VCR.use_cassette('report_example') do
-          allow(CreateFolder).to receive(:setting_report_folder).and_return(default_address)
+          allow(FolderManager).to receive(:setting_report_folder).and_return(default_address)
 
-          expect(CreateFolder).to receive(:setting_report_folder).with(default_report.category)
+          expect(FolderManager).to receive(:setting_report_folder).with(default_report.category)
 
           FileManager.new(name: default_report.name, category: default_report.category)
         end
       end
 
-      it '.new CreateFolder critical' do
+      it '.new FolderManager critical' do
         VCR.use_cassette('critical_report_example') do
-          allow(CreateFolder).to receive(:setting_report_folder).and_return(critical_address)
+          allow(FolderManager).to receive(:setting_report_folder).and_return(critical_address)
 
-          expect(CreateFolder).to receive(:setting_report_folder).with(critical_report.category)
+          expect(FolderManager).to receive(:setting_report_folder).with(critical_report.category)
 
           FileManager.new(name: critical_report.name, category: critical_report.category)
         end
