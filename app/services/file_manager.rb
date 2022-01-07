@@ -1,4 +1,4 @@
-class ManageFile
+class FileManager
   attr_accessor :full_address, :category, :code, :name
 
   def initialize(name: 'reportexample', category: :report_default)
@@ -10,7 +10,7 @@ class ManageFile
   end
 
   def create_file
-    ManageReportContent.new(full_address: full_address, code: code, category: category, name: name).create
+    ReportContentManager.new(full_address: full_address, code: code, category: category, name: name).create
   end
 
   def self.destroy_file(report)

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :manage_file do # :full_address, :category, :code, :name
+  factory :file_manager do # :full_address, :category, :code, :name
     category { :report_default }
     name { Rails.configuration.report_generator[:default_name] }
 

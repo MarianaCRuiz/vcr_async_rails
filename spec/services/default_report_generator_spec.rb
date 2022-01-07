@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe FillDefaultReport do
+describe DefaultReportGenerator do
   let(:default_address) { Rails.root.join(Rails.configuration.report_generator[:report_default]) }
-  let(:attributes_default) { attributes_for(:manage_report_content, :default) }
+  let(:attributes_default) { attributes_for(:report_content_manager, :default) }
 
   context 'public class methods' do
-    it { expect(FillDefaultReport).to respond_to(:writing_file) }
-    it { expect(FillDefaultReport).to respond_to(:data_source) }
+    it { expect(DefaultReportGenerator).to respond_to(:writing_file) }
+    it { expect(DefaultReportGenerator).to respond_to(:data_source) }
 
     context '.writing_file' do
       it '.writing_file default' do
@@ -17,7 +17,7 @@ describe FillDefaultReport do
           expect(File).to receive(:new).with(params, 'w')
           expect(File.new(params, 'w')).to receive(:close)
 
-          FillDefaultReport.writing_file(attributes_default[:full_address], attributes_default[:code])
+          DefaultReportGenerator.writing_file(attributes_default[:full_address], attributes_default[:code])
         end
       end
 
@@ -25,7 +25,7 @@ describe FillDefaultReport do
         VCR.use_cassette('report_example') do
           before_generator = Dir["#{default_address}/*"].length
 
-          FillDefaultReport.writing_file(attributes_default[:full_address], attributes_default[:code])
+          DefaultReportGenerator.writing_file(attributes_default[:full_address], attributes_default[:code])
 
           expect(Dir["#{default_address}/*"].length).to eq(before_generator + 1)
         end
@@ -33,7 +33,7 @@ describe FillDefaultReport do
 
       it '.writing_file default content' do
         VCR.use_cassette('report_example') do
-          FillDefaultReport.writing_file(attributes_default[:full_address], attributes_default[:code])
+          DefaultReportGenerator.writing_file(attributes_default[:full_address], attributes_default[:code])
 
           data = File.open(attributes_default[:full_address])
           lines = data.readlines.map(&:chomp)
@@ -47,7 +47,7 @@ describe FillDefaultReport do
     context '.data_source' do
       it '.data_source class' do
         VCR.use_cassette('report_example') do
-          response = FillDefaultReport.data_source
+          response = DefaultReportGenerator.data_source
 
           expect(response.class).to eq(TrueClass)
         end
@@ -58,7 +58,7 @@ describe FillDefaultReport do
           .with('https://jsonplaceholder.typicode.com/posts/2')
           .and_return(instance_double(Faraday::Response, status: 200, body: example))
 
-        FillDefaultReport.data_source
+        DefaultReportGenerator.data_source
 
         expect(Faraday).to have_received(:get).with('https://jsonplaceholder.typicode.com/posts/2')
       end

@@ -1,7 +1,7 @@
-class ManageReportContent
-  REPORT_CATEGORIES = { report_low: { report_type: 0, klass: FillLowReport },
-                        report_default: { report_type: 1, klass: FillDefaultReport },
-                        report_critical: { report_type: 2, klass: FillCriticalReport } }.freeze
+class ReportContentManager
+  REPORT_CATEGORIES = { report_low: { report_type: 0, klass: LowReportGenerator },
+                        report_default: { report_type: 1, klass: DefaultReportGenerator },
+                        report_critical: { report_type: 2, klass: CriticalReportGenerator } }.freeze
   attr_accessor :full_address, :category, :code
 
   def initialize(**params)

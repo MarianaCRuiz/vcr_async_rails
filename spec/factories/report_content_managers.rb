@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :manage_report_content do # :full_address, :category, :code
+  factory :report_content_manager do # :full_address, :category, :code
     name = Rails.configuration.report_generator[:default_name]
     path = Rails.configuration.report_generator[:report_default]
 

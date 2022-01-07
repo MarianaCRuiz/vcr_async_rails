@@ -30,9 +30,9 @@ describe 'View Reports Generated' do
 
   it 'Reports #create #index failure' do
     perform_enqueued_jobs do
-      allow(FillCriticalReport).to receive(:writing_file).and_return(false)
-      allow(FillDefaultReport).to receive(:writing_file).and_return(false)
-      allow(FillLowReport).to receive(:writing_file).and_return(true)
+      allow(CriticalReportGenerator).to receive(:writing_file).and_return(false)
+      allow(DefaultReportGenerator).to receive(:writing_file).and_return(false)
+      allow(LowReportGenerator).to receive(:writing_file).and_return(true)
 
       visit root_path
       click_on 'Relatórios'

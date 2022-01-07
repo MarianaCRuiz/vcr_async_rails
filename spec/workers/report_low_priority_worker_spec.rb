@@ -12,12 +12,12 @@ describe ReportLowPriorityWorker do
     expect(ReportLowPriorityWorker.new).to respond_to(:perform)
   end
 
-  it 'call ManageFile' do
-    attributes = attributes_for(:manage_file, :low)
-    allow(ManageFile).to receive(:new).and_return(ManageFile.new(**attributes))
+  it 'call FileManager' do
+    attributes = attributes_for(:file_manager, :low)
+    allow(FileManager).to receive(:new).and_return(FileManager.new(**attributes))
 
-    expect(ManageFile).to receive(:new).with(**attributes)
-    expect(ManageFile.new).to receive(:create_file)
+    expect(FileManager).to receive(:new).with(**attributes)
+    expect(FileManager.new).to receive(:create_file)
 
     Sidekiq::Testing.inline!
     ReportLowPriorityWorker.perform_async

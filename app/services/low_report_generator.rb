@@ -1,4 +1,4 @@
-class FillLowReport
+class LowReportGenerator
   def self.writing_file(full_address, code)
     @out_file = File.new(full_address, 'w')
     @out_file.puts("<p>Your Low Priority Report Here - code: <b>#{code}</b></p>")

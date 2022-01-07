@@ -23,14 +23,14 @@ describe ReportExampleJob do
       expect { ReportExampleJob.perform_later }.to have_performed_job.on_queue('default')
     end
   end
-  it 'call ManageFile' do
+  it 'call FileManager' do
     VCR.use_cassette('report_example') do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-      attributes = attributes_for(:manage_file, :default)
-      allow(ManageFile).to receive(:new).and_return(ManageFile.new(**attributes))
+      attributes = attributes_for(:file_manager, :default)
+      allow(FileManager).to receive(:new).and_return(FileManager.new(**attributes))
 
-      expect(ManageFile).to receive(:new).with(**attributes).once
-      expect(ManageFile.new).to receive(:create_file)
+      expect(FileManager).to receive(:new).with(**attributes).once
+      expect(FileManager.new).to receive(:create_file)
 
       ReportExampleJob.perform_later
     end
