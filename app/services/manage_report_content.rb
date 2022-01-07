@@ -1,4 +1,4 @@
-class ManageReport
+class ManageReportContent
   REPORT_CATEGORIES = { report_low: { report_type: 0, klass: FillLowReport },
                         report_default: { report_type: 1, klass: FillDefaultReport },
                         report_critical: { report_type: 2, klass: FillCriticalReport } }.freeze
@@ -15,15 +15,6 @@ class ManageReport
     return unless written_file
 
     Report.create!(address: full_address, report_type: report_type, report_code: code)
-  end
-
-  def self.destroy_file(report)
-    FileUtils.rm_rf(report.address)
-  end
-
-  def self.destroy_all_files
-    path = Rails.configuration.report_generator[:reports_folder]
-    Dir[Rails.root.join("#{path}/**/*.html")].each { |f| FileUtils.rm_rf(f) }
   end
 
   private

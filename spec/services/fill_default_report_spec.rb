@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe FillDefaultReport do
   let(:default_address) { Rails.root.join(Rails.configuration.report_generator[:report_default]) }
-  let(:attributes_default) { attributes_for(:manage_report, :default) }
+  let(:attributes_default) { attributes_for(:manage_report_content, :default) }
 
   context 'public class methods' do
     it { expect(FillDefaultReport).to respond_to(:writing_file) }

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe FillLowReport do
   let(:low_address) { Rails.root.join(Rails.configuration.report_generator[:report_low]) }
-  let(:attributes_low) { attributes_for(:manage_report, :low) }
+  let(:attributes_low) { attributes_for(:manage_report_content, :low) }
 
   context 'public class methods' do
     it { expect(FillLowReport).to respond_to(:writing_file) }

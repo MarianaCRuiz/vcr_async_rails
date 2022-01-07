@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe FillCriticalReport do
   let(:critical_address) { Rails.root.join(Rails.configuration.report_generator[:report_critical]) }
-  let(:attributes_critical) { attributes_for(:manage_report, :critical) }
+  let(:attributes_critical) { attributes_for(:manage_report_content, :critical) }
 
   context 'public class methods' do
     it { expect(FillCriticalReport).to respond_to(:writing_file) }

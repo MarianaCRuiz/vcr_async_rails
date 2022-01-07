@@ -23,14 +23,14 @@ describe ReportCriticalJob do
       expect { ReportCriticalJob.perform_later }.to have_performed_job.on_queue('critical')
     end
   end
-  it 'call ArrangeGenerateFile' do
+  it 'call ManageFile' do
     VCR.use_cassette('critical_report_example') do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
-      attributes = attributes_for(:arrange_generate_file, :critical)
-      allow(ArrangeGenerateFile).to receive(:new).and_return(ArrangeGenerateFile.new(**attributes))
+      attributes = attributes_for(:manage_file, :critical)
+      allow(ManageFile).to receive(:new).and_return(ManageFile.new(**attributes))
 
-      expect(ArrangeGenerateFile).to receive(:new).with(**attributes).once
-      expect(ArrangeGenerateFile.new).to receive(:create_file)
+      expect(ManageFile).to receive(:new).with(**attributes).once
+      expect(ManageFile.new).to receive(:create_file)
 
       ReportCriticalJob.perform_later
     end
