@@ -17,7 +17,7 @@
     <% @critical_reports.each do |report| %> 
       <div id="list_critical_reports">
         <% if report.success? %>
-          <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
+          <li><%= link_to(report.address.split('/').last, "reports/default/#{ report.address.split('/').last }", target: "_blank") %> </li>
         <% elsif report.failure? %>
           <li>FALHA</li>
         <% end %>
@@ -34,7 +34,7 @@
     <% @default_reports.each do |report| %> 
       <div id="list_reports">
         <% if report.success? %>
-          <li><%= link_to(report.address.split('/').last, "reports/default/#{report.address.split('/').last}", target: "_blank") %> </li>
+          <li><%= link_to(report.address.split('/').last, "reports/default/#{ report.address.split('/').last }", target: "_blank") %> </li>
         <% elsif report.failure? %>
           <li>FALHA</li>
         <% end %>
@@ -51,7 +51,7 @@
     <% @low_priority_reports.each do |report| %>
       <div id="list_low_reports">
         <% if report.success? %>
-          <li><%= link_to(report.address.split('/').last, "/reports/low_priority/#{report.address.split('/').last}", target: "_blank") %></li>
+          <li><%= link_to(report.address.split('/').last, "/reports/low_priority/#{ report.address.split('/').last }", target: "_blank") %></li>
         <% elsif report.failure? %>
           <li>FALHA</li>
         <% end %>

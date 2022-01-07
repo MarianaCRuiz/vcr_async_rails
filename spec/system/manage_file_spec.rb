@@ -43,7 +43,6 @@ describe 'View Reports Generated' do
         click_on 'Relatórios'
 
         expect(current_path).to eq(reports_path)
-        # expect(Report.count).to eq(1)
         expect(Report.count).to eq(3)
         expect(page).to_not have_content('criticalpriorityreport')
         expect(page).to_not have_content('reportexample')

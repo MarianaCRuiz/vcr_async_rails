@@ -4,12 +4,18 @@ describe ReportContentManager do
   let(:attributes_critical) { attributes_for(:report_content_manager, :critical) }
   let(:attributes_default) { attributes_for(:report_content_manager, :default) }
   let(:attributes_low) { attributes_for(:report_content_manager, :low) }
-  let(:params_critical) { { address: attributes_critical[:full_address], report_type: 2,
-                            report_code: attributes_critical[:code] } }
-  let(:params_default) { { address: attributes_default[:full_address], report_type: 1,
-                            report_code: attributes_default[:code] } }
-  let(:params_low) { { address: attributes_low[:full_address], report_type: 0,
-                           report_code: attributes_low[:code] } }
+  let(:params_critical) do
+    { address: attributes_critical[:full_address], report_type: 2,
+      report_code: attributes_critical[:code] }
+  end
+  let(:params_default) do
+    { address: attributes_default[:full_address], report_type: 1,
+      report_code: attributes_default[:code] }
+  end
+  let(:params_low) do
+    { address: attributes_low[:full_address], report_type: 0,
+      report_code: attributes_low[:code] }
+  end
   let(:success) { 100 }
   let(:failure) { 10 }
 
