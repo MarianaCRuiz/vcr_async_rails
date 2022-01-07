@@ -38,7 +38,7 @@ describe ReportContentManager do
         allow(CriticalReportGenerator).to receive(:writing_file).and_return(true)
 
         expect(CriticalReportGenerator).to receive(:writing_file)
-          .with(attributes_critical[:full_address], attributes_critical[:code])
+          .with(full_address: attributes_critical[:full_address], code: attributes_critical[:code])
         expect(Report).to receive(:create!).with(**params_critical)
 
         ReportContentManager.new(**attributes_critical).create
@@ -49,7 +49,7 @@ describe ReportContentManager do
         allow(DefaultReportGenerator).to receive(:writing_file).and_return(true)
 
         expect(DefaultReportGenerator).to receive(:writing_file)
-          .with(attributes_default[:full_address], attributes_default[:code])
+          .with(full_address: attributes_default[:full_address], code: attributes_default[:code])
 
         expect(Report).to receive(:create!).with(**params_default)
 
@@ -61,7 +61,7 @@ describe ReportContentManager do
         allow(LowReportGenerator).to receive(:writing_file).and_return(true)
 
         expect(LowReportGenerator).to receive(:writing_file)
-          .with(attributes_low[:full_address], attributes_low[:code])
+          .with(full_address: attributes_low[:full_address], code: attributes_low[:code])
         expect(Report).to receive(:create!).with(**params_low)
 
         ReportContentManager.new(**attributes_low).create
@@ -74,7 +74,7 @@ describe ReportContentManager do
         allow(CriticalReportGenerator).to receive(:writing_file).and_return(false)
 
         expect(CriticalReportGenerator).to receive(:writing_file)
-          .with(attributes_critical[:full_address], attributes_critical[:code])
+          .with(full_address: attributes_critical[:full_address], code: attributes_critical[:code])
         expect(Report).to receive(:create!).with(**params_critical)
 
         ReportContentManager.new(**attributes_critical).create
@@ -84,7 +84,7 @@ describe ReportContentManager do
         allow(DefaultReportGenerator).to receive(:writing_file).and_return(false)
 
         expect(DefaultReportGenerator).to receive(:writing_file)
-          .with(attributes_default[:full_address], attributes_default[:code])
+          .with(full_address: attributes_default[:full_address], code: attributes_default[:code])
 
         expect(Report).to receive(:create!).with(**params_default)
 
@@ -95,7 +95,7 @@ describe ReportContentManager do
         allow(LowReportGenerator).to receive(:writing_file).and_return(false)
 
         expect(LowReportGenerator).to receive(:writing_file)
-          .with(attributes_low[:full_address], attributes_low[:code])
+          .with(full_address: attributes_low[:full_address], code: attributes_low[:code])
         expect(Report).to receive(:create!).with(**params_low)
 
         ReportContentManager.new(**attributes_low).create

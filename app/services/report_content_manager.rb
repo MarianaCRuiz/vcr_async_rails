@@ -12,7 +12,7 @@ class ReportContentManager
   end
 
   def create
-    written_file = klass.writing_file(full_address, code)
+    written_file = klass.writing_file(full_address: full_address, code: code)
     params = { address: full_address, report_type: report_type,
                report_code: code, file_condition: get_condition(written_file) }
     Report.create!(**params)

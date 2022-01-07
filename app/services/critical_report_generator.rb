@@ -1,5 +1,5 @@
 class CriticalReportGenerator
-  def self.writing_file(full_address, code)
+  def self.writing_file(full_address: '', code: '')
     return false unless data_source
 
     @out_file = File.new(full_address, 'w')

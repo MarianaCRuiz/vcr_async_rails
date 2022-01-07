@@ -3,6 +3,9 @@ require 'rails_helper'
 describe CriticalReportGenerator do
   let(:critical_address) { Rails.root.join(Rails.configuration.report_generator[:report_critical]) }
   let(:attributes_critical) { attributes_for(:report_content_manager, :critical) }
+  let(:params_critical) do
+    { full_address: attributes_critical[:full_address], code: attributes_critical[:code] }
+  end
 
   context 'public class methods' do
     it { expect(CriticalReportGenerator).to respond_to(:writing_file) }
@@ -19,15 +22,15 @@ describe CriticalReportGenerator do
           expect(File).to receive(:new).with(params, 'w')
           expect(File.new(params, 'w')).to receive(:close)
 
-          CriticalReportGenerator.writing_file(attributes_critical[:full_address], attributes_critical[:code])
+          params_writing = { full_address: attributes_critical[:full_address], code: attributes_critical[:code] }
+          CriticalReportGenerator.writing_file(**params_writing)
         end
       end
 
       it '.writing_file critical generate file' do
         VCR.use_cassette('critical_report_example') do
           before_generator = Dir["#{critical_address}/*"].length
-
-          CriticalReportGenerator.writing_file(attributes_critical[:full_address], attributes_critical[:code])
+          CriticalReportGenerator.writing_file(**params_critical)
 
           expect(Dir["#{critical_address}/*"].length).to eq(before_generator + 1)
         end
@@ -35,7 +38,7 @@ describe CriticalReportGenerator do
 
       it '.writing_file critical content' do
         VCR.use_cassette('critical_report_example') do
-          CriticalReportGenerator.writing_file(attributes_critical[:full_address], attributes_critical[:code])
+          CriticalReportGenerator.writing_file(**params_critical)
 
           data = File.open(attributes_critical[:full_address])
           lines = data.readlines.map(&:chomp)

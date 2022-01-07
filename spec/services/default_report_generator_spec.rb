@@ -3,6 +3,9 @@ require 'rails_helper'
 describe DefaultReportGenerator do
   let(:default_address) { Rails.root.join(Rails.configuration.report_generator[:report_default]) }
   let(:attributes_default) { attributes_for(:report_content_manager, :default) }
+  let(:params_default) do
+    { full_address: attributes_default[:full_address], code: attributes_default[:code] }
+  end
 
   context 'public class methods' do
     it { expect(DefaultReportGenerator).to respond_to(:writing_file) }
@@ -17,15 +20,15 @@ describe DefaultReportGenerator do
           expect(File).to receive(:new).with(params, 'w')
           expect(File.new(params, 'w')).to receive(:close)
 
-          DefaultReportGenerator.writing_file(attributes_default[:full_address], attributes_default[:code])
+          params_writing = { full_address: attributes_default[:full_address], code: attributes_default[:code] }
+          DefaultReportGenerator.writing_file(**params_writing)
         end
       end
 
       it '.writing_file default generate file' do
         VCR.use_cassette('report_example') do
           before_generator = Dir["#{default_address}/*"].length
-
-          DefaultReportGenerator.writing_file(attributes_default[:full_address], attributes_default[:code])
+          DefaultReportGenerator.writing_file(**params_default)
 
           expect(Dir["#{default_address}/*"].length).to eq(before_generator + 1)
         end
@@ -33,7 +36,7 @@ describe DefaultReportGenerator do
 
       it '.writing_file default content' do
         VCR.use_cassette('report_example') do
-          DefaultReportGenerator.writing_file(attributes_default[:full_address], attributes_default[:code])
+          DefaultReportGenerator.writing_file(**params_default)
 
           data = File.open(attributes_default[:full_address])
           lines = data.readlines.map(&:chomp)
