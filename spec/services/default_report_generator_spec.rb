@@ -12,7 +12,7 @@ describe DefaultReportGenerator do
     it { expect(DefaultReportGenerator).to respond_to(:data_source) }
 
     context '.writing_file' do
-      it '.writing_file default' do
+      it '.writing_file default success' do
         VCR.use_cassette('report_example') do
           params = attributes_default[:full_address]
           allow(File).to receive(:new).with(params, 'w').and_return(File.new(params, 'w'))
@@ -21,6 +21,17 @@ describe DefaultReportGenerator do
           expect(File.new(params, 'w')).to receive(:close)
 
           params_writing = { full_address: attributes_default[:full_address], code: attributes_default[:code] }
+          DefaultReportGenerator.writing_file(**params_writing)
+        end
+      end
+
+      it '.writing_file default failure' do
+        VCR.use_cassette('report_example') do
+          params_writing = { full_address: attributes_default[:full_address], code: attributes_default[:code] }
+          allow(DefaultReportGenerator).to receive(:data_source).and_return(false)
+
+          expect(DefaultReportGenerator).to receive(:writing_file).with(**params_writing).and_return(false)
+
           DefaultReportGenerator.writing_file(**params_writing)
         end
       end
@@ -52,10 +63,10 @@ describe DefaultReportGenerator do
         VCR.use_cassette('report_example') do
           response = DefaultReportGenerator.data_source
 
-          expect(response.class).to eq(TrueClass)
+          expect(response.class).to eq(Hash)
         end
       end
-      it '.data_source Farady' do
+      it '.data_source Farady success' do
         example = File.read(Rails.root.join('spec/fixtures/report_example.json'))
         allow(Faraday).to receive(:get)
           .with('https://jsonplaceholder.typicode.com/posts/2')
@@ -64,6 +75,16 @@ describe DefaultReportGenerator do
         DefaultReportGenerator.data_source
 
         expect(Faraday).to have_received(:get).with('https://jsonplaceholder.typicode.com/posts/2')
+      end
+
+      it '.data_source Farady failure' do
+        allow(Faraday).to receive(:get)
+          .with('https://jsonplaceholder.typicode.com/posts/2')
+          .and_return(instance_double(Faraday::Response, status: 404, body: ''))
+
+        response = DefaultReportGenerator.data_source
+
+        expect(response.class).to eq(FalseClass)
       end
     end
   end

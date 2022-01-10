@@ -12,7 +12,7 @@ describe CriticalReportGenerator do
     it { expect(CriticalReportGenerator).to respond_to(:data_source) }
 
     context '.writing_file' do
-      it '.writing_file critical' do
+      it '.writing_file critical success' do
         VCR.use_cassette('critical_report_example') do
           params = attributes_critical[:full_address]
           allow(File).to receive(:new)
@@ -23,6 +23,17 @@ describe CriticalReportGenerator do
           expect(File.new(params, 'w')).to receive(:close)
 
           params_writing = { full_address: attributes_critical[:full_address], code: attributes_critical[:code] }
+          CriticalReportGenerator.writing_file(**params_writing)
+        end
+      end
+
+      it '.writing_file critical failure' do
+        VCR.use_cassette('critical_report_example') do
+          params_writing = { full_address: attributes_critical[:full_address], code: attributes_critical[:code] }
+          allow(CriticalReportGenerator).to receive(:data_source).and_return(false)
+
+          expect(CriticalReportGenerator).to receive(:writing_file).with(**params_writing).and_return(false)
+
           CriticalReportGenerator.writing_file(**params_writing)
         end
       end
@@ -54,10 +65,10 @@ describe CriticalReportGenerator do
         VCR.use_cassette('critical_report_example') do
           response = CriticalReportGenerator.data_source
 
-          expect(response.class).to eq(TrueClass)
+          expect(response.class).to eq(Hash)
         end
       end
-      it '.data_source Farady' do
+      it '.data_source Farady success' do
         example = File.read(Rails.root.join('spec/fixtures/report_example.json'))
         allow(Faraday).to receive(:get)
           .with('https://jsonplaceholder.typicode.com/posts/1')
@@ -66,6 +77,15 @@ describe CriticalReportGenerator do
         CriticalReportGenerator.data_source
 
         expect(Faraday).to have_received(:get).with('https://jsonplaceholder.typicode.com/posts/1')
+      end
+      it '.data_source Farady failure' do
+        allow(Faraday).to receive(:get)
+          .with('https://jsonplaceholder.typicode.com/posts/1')
+          .and_return(instance_double(Faraday::Response, status: 404, body: ''))
+
+        response = CriticalReportGenerator.data_source
+
+        expect(response.class).to eq(FalseClass)
       end
     end
   end

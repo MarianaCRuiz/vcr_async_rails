@@ -11,6 +11,7 @@ describe 'Destroying Reports', js: true do
     Sidekiq::Testing.inline!
     ReportLowPriorityWorker.perform_async
   end
+
   let(:path_default) { Rails.configuration.report_generator[:report_default] }
   let(:path_low) { Rails.configuration.report_generator[:report_low] }
   let(:path_critical) { Rails.configuration.report_generator[:report_critical] }

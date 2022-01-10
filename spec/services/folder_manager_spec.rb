@@ -35,15 +35,6 @@ describe FolderManager do
 
     context '.creating_folder' do
       context 'low priority' do
-        xit '.creating_folder low directory? true false' do
-          allow(File).to receive(:directory?).and_return(true, false)
-
-          FolderManager.setting_report_folder(:report_low)
-
-          expect(Dir).to have_received(:mkdir).with(general_address)
-          expect(Dir).to have_received(:mkdir).with(low_address)
-        end
-
         it '.creating_folder low directory? true false' do
           allow(File).to receive(:directory?).and_return(true, false)
 

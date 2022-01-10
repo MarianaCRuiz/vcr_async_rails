@@ -23,6 +23,7 @@ describe ReportCriticalJob do
       expect { ReportCriticalJob.perform_later }.to have_performed_job.on_queue('critical')
     end
   end
+
   it 'call FileManager' do
     VCR.use_cassette('critical_report_example') do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true

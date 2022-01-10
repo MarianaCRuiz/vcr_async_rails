@@ -11,6 +11,7 @@ describe 'Accessing Reports' do
     Sidekiq::Testing.inline!
     ReportLowPriorityWorker.perform_async
   end
+
   it 'Reports #index' do
     visit root_path
     click_on 'Relatórios'

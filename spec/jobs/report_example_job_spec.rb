@@ -23,6 +23,7 @@ describe ReportExampleJob do
       expect { ReportExampleJob.perform_later }.to have_performed_job.on_queue('default')
     end
   end
+
   it 'call FileManager' do
     VCR.use_cassette('report_example') do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true

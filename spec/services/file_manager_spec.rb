@@ -3,15 +3,14 @@ require 'rails_helper'
 describe FileManager do
   include ActiveJob::TestHelper
   let(:path_reports) { Rails.configuration.report_generator[:reports_folder] }
+  let(:path_critical) { Rails.configuration.report_generator[:report_critical] }
   let(:path_default) { Rails.configuration.report_generator[:report_default] }
   let(:path_low) { Rails.configuration.report_generator[:report_low] }
-  let(:path_critical) { Rails.configuration.report_generator[:report_critical] }
-  let(:critical_address) { Rails.root.join(Rails.configuration.report_generator[:report_critical]) }
-  let(:default_address) { Rails.root.join(Rails.configuration.report_generator[:report_default]) }
-  let(:low_address) { Rails.root.join(Rails.configuration.report_generator[:report_low]) }
+
   let(:critical_report) { build(:file_manager, :critical) }
   let(:default_report) { build(:file_manager, :default) }
   let(:low_report) { build(:file_manager, :low) }
+
   let(:manage_critical_report) { build(:report_content_manager, :critical) }
   let(:manage_default_report) { build(:report_content_manager, :default) }
   let(:manage_low_report) { build(:report_content_manager, :low) }
@@ -23,7 +22,7 @@ describe FileManager do
 
     context '.new FolderManager' do
       it '.new FolderManager low' do
-        allow(FolderManager).to receive(:setting_report_folder).and_return(low_address)
+        allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_low))
 
         expect(FolderManager).to receive(:setting_report_folder).with(low_report.category)
 
@@ -32,7 +31,7 @@ describe FileManager do
 
       it '.new FolderManager default' do
         VCR.use_cassette('report_example') do
-          allow(FolderManager).to receive(:setting_report_folder).and_return(default_address)
+          allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_default))
 
           expect(FolderManager).to receive(:setting_report_folder).with(default_report.category)
 
@@ -42,7 +41,7 @@ describe FileManager do
 
       it '.new FolderManager critical' do
         VCR.use_cassette('critical_report_example') do
-          allow(FolderManager).to receive(:setting_report_folder).and_return(critical_address)
+          allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_critical))
 
           expect(FolderManager).to receive(:setting_report_folder).with(critical_report.category)
 

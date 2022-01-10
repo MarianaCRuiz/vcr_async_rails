@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'View Reports Generated' do
   include ActiveJob::TestHelper
+  let(:path_reports) { Rails.configuration.report_generator[:reports_folder] }
   before(:each) do
     VCR.insert_cassette('critical_report_example')
     VCR.insert_cassette('report_example')
@@ -15,6 +16,8 @@ describe 'View Reports Generated' do
   context 'success' do
     it 'Reports #create #index' do
       perform_enqueued_jobs do
+        before = Dir[Rails.root.join("#{path}/**/*.html")].length
+
         visit root_path
         click_on 'Relatórios'
         click_on 'Gerar Novo'
@@ -22,6 +25,7 @@ describe 'View Reports Generated' do
 
         expect(current_path).to eq(reports_path)
         expect(Report.count).to eq(3)
+        expect(Dir[Rails.root.join("#{path}/**/*.html")].length).to eq(before + 3)
         expect(page).to have_button('Gerar Novo')
         expect(page).to have_content('criticalpriorityreport')
         expect(page).to have_content('reportexample')
