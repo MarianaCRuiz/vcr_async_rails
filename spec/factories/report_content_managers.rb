@@ -3,7 +3,7 @@ FactoryBot.define do
     name = Rails.configuration.report_generator[:default_name]
     path = Rails.configuration.report_generator[:report_default]
 
-    code { Report.generate_code }
+    code { CodeGenerator.create }
     category { :report_default }
     full_address { Rails.root.join("#{path}/#{name}#{code}.html") }
 

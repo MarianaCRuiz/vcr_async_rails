@@ -20,35 +20,42 @@ describe FileManager do
     it { expect(FileManager).to respond_to(:destroy_all_files) }
     it { expect(FileManager).to respond_to(:destroy_file) }
 
-    context '.new FolderManager' do
-      it '.new FolderManager low' do
-        allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_low))
+    context '.new' do
+      it '.new critical' do
+        VCR.use_cassette('critical_report_example') do
+          allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_critical))
+          critical_report
 
-        expect(FolderManager).to receive(:setting_report_folder).with(low_report.category)
+          expect(CodeGenerator).to receive(:create).once
+          expect(FolderManager).to receive(:setting_report_folder).with(critical_report.category)
 
-        FileManager.new(name: low_report.name, category: low_report.category)
+          FileManager.new(name: critical_report.name, category: critical_report.category)
+        end
       end
 
-      it '.new FolderManager default' do
+      it '.new default' do
         VCR.use_cassette('report_example') do
           allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_default))
+          default_report
 
+          expect(CodeGenerator).to receive(:create).once
           expect(FolderManager).to receive(:setting_report_folder).with(default_report.category)
 
           FileManager.new(name: default_report.name, category: default_report.category)
         end
       end
 
-      it '.new FolderManager critical' do
-        VCR.use_cassette('critical_report_example') do
-          allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_critical))
+      it '.new low' do
+        allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_low))
+        low_report
 
-          expect(FolderManager).to receive(:setting_report_folder).with(critical_report.category)
+        expect(CodeGenerator).to receive(:create).once
+        expect(FolderManager).to receive(:setting_report_folder).with(low_report.category)
 
-          FileManager.new(name: critical_report.name, category: critical_report.category)
-        end
+        FileManager.new(name: low_report.name, category: low_report.category)
       end
     end
+
     it '.destroy_all_files' do
       VCR.use_cassette('critical_report_example') do
         ReportCriticalJob.perform_now
@@ -102,15 +109,18 @@ describe FileManager do
     it { expect(FileManager.new).to respond_to(:create_file) }
 
     context '#create_file ReportContentManager' do
-      it '#create_file ReportContentManager low' do
-        allow(ReportContentManager).to receive(:new).and_return(manage_low_report)
-        params = { full_address: anything, category: low_report.category,
-                   code: anything, name: low_report.name }
+      it '#create_file ReportContentManager critical' do
+        VCR.use_cassette('critical_report_example') do
+          ActiveJob::Base.queue_adapter = :test
+          allow(ReportContentManager).to receive(:new).and_return(manage_critical_report)
+          params = { full_address: anything, category: critical_report.category,
+                     code: anything, name: critical_report.name }
 
-        expect(ReportContentManager).to receive(:new).with(**params)
-        expect(ReportContentManager.new).to receive(:create)
+          expect(ReportContentManager).to receive(:new).with(**params)
+          expect(ReportContentManager.new).to receive(:create)
 
-        FileManager.new(name: low_report.name, category: low_report.category).create_file
+          FileManager.new(name: critical_report.name, category: critical_report.category).create_file
+        end
       end
 
       it '#create_file ReportContentManager default' do
@@ -127,18 +137,15 @@ describe FileManager do
         end
       end
 
-      it '#create_file ReportContentManager critical' do
-        VCR.use_cassette('critical_report_example') do
-          ActiveJob::Base.queue_adapter = :test
-          allow(ReportContentManager).to receive(:new).and_return(manage_critical_report)
-          params = { full_address: anything, category: critical_report.category,
-                     code: anything, name: critical_report.name }
+      it '#create_file ReportContentManager low' do
+        allow(ReportContentManager).to receive(:new).and_return(manage_low_report)
+        params = { full_address: anything, category: low_report.category,
+                   code: anything, name: low_report.name }
 
-          expect(ReportContentManager).to receive(:new).with(**params)
-          expect(ReportContentManager.new).to receive(:create)
+        expect(ReportContentManager).to receive(:new).with(**params)
+        expect(ReportContentManager.new).to receive(:create)
 
-          FileManager.new(name: critical_report.name, category: critical_report.category).create_file
-        end
+        FileManager.new(name: low_report.name, category: low_report.category).create_file
       end
     end
   end

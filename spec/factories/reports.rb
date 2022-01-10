@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :report do
-    report_code { Report.generate_code }
+    report_code { CodeGenerator.create }
     report_type { 1 }
     file_condition { 100 }
     path = Rails.configuration.report_generator[:report_default]
