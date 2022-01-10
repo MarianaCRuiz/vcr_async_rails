@@ -4,7 +4,7 @@ class FileManager
   def initialize(name: 'reportexample', category: :report_default)
     @name = name
     @category = category
-    self.code = CodeGenerator.create
+    self.code = generate_code
     @report_path = FolderManager.setting_report_folder(category)
     self.full_address = Rails.root.join(@report_path, "#{name}#{code}.html")
   end
@@ -21,5 +21,13 @@ class FileManager
   def self.destroy_all_files
     path = Rails.configuration.report_generator[:reports_folder]
     Dir[Rails.root.join("#{path}/**/*.html")].each { |f| FileUtils.rm_rf(f) }
+  end
+
+  def generate_code
+    loop do
+      @code = SecureRandom.base58(8)
+      break unless Report.exists?(report_code: @code)
+    end
+    @code
   end
 end

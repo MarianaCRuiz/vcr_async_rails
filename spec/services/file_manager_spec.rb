@@ -24,9 +24,7 @@ describe FileManager do
       it '.new critical' do
         VCR.use_cassette('critical_report_example') do
           allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_critical))
-          critical_report
 
-          expect(CodeGenerator).to receive(:create).once
           expect(FolderManager).to receive(:setting_report_folder).with(critical_report.category)
 
           FileManager.new(name: critical_report.name, category: critical_report.category)
@@ -36,9 +34,7 @@ describe FileManager do
       it '.new default' do
         VCR.use_cassette('report_example') do
           allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_default))
-          default_report
 
-          expect(CodeGenerator).to receive(:create).once
           expect(FolderManager).to receive(:setting_report_folder).with(default_report.category)
 
           FileManager.new(name: default_report.name, category: default_report.category)
@@ -47,61 +43,63 @@ describe FileManager do
 
       it '.new low' do
         allow(FolderManager).to receive(:setting_report_folder).and_return(Rails.root.join(path_low))
-        low_report
 
-        expect(CodeGenerator).to receive(:create).once
         expect(FolderManager).to receive(:setting_report_folder).with(low_report.category)
 
         FileManager.new(name: low_report.name, category: low_report.category)
       end
     end
 
-    it '.destroy_all_files' do
-      VCR.use_cassette('critical_report_example') do
-        ReportCriticalJob.perform_now
+    context '.destroy_all_files' do
+      it '.destroy_all_files' do
+        VCR.use_cassette('critical_report_example') do
+          ReportCriticalJob.perform_now
+        end
+        VCR.use_cassette('report_example') do
+          ReportExampleJob.perform_now
+        end
+        Sidekiq::Testing.inline!
+        ReportLowPriorityWorker.perform_async
+        before_destroy = Dir[Rails.root.join("#{path_reports}/**/*.html")].length
+
+        FileManager.destroy_all_files
+
+        expect(Dir[Rails.root.join("#{path_reports}/**/*.html")].length).to eq(before_destroy - 3)
       end
-      VCR.use_cassette('report_example') do
-        ReportExampleJob.perform_now
+
+      context '.destroy_file' do
+        it '.destroy_file critical' do
+          VCR.use_cassette('critical_report_example') do
+            ReportCriticalJob.perform_now
+          end
+          before_destroy = Dir[Rails.root.join("#{path_critical}/*.html")].length
+
+          FileManager.destroy_file(Report.last)
+
+          expect(Dir[Rails.root.join("#{path_critical}/*")].length).to eq(before_destroy - 1)
+        end
+
+        it '.destroy_file default' do
+          VCR.use_cassette('report_example') do
+            ReportExampleJob.perform_now
+          end
+          before_destroy = Dir[Rails.root.join("#{path_default}/*.html")].length
+
+          FileManager.destroy_file(Report.last)
+
+          expect(Dir[Rails.root.join("#{path_default}/*")].length).to eq(before_destroy - 1)
+        end
+
+        it '.destroy_file low' do
+          Sidekiq::Testing.inline!
+          ReportLowPriorityWorker.perform_async
+          before_destroy = Dir[Rails.root.join("#{path_low}/*.html")].length
+
+          FileManager.destroy_file(Report.last)
+
+          expect(Dir[Rails.root.join("#{path_low}/*")].length).to eq(before_destroy - 1)
+        end
       end
-      Sidekiq::Testing.inline!
-      ReportLowPriorityWorker.perform_async
-      before_destroy = Dir[Rails.root.join("#{path_reports}/**/*.html")].length
-
-      FileManager.destroy_all_files
-
-      expect(Dir[Rails.root.join("#{path_reports}/**/*.html")].length).to eq(before_destroy - 3)
-    end
-
-    it '.destroy_file critical' do
-      VCR.use_cassette('critical_report_example') do
-        ReportCriticalJob.perform_now
-      end
-      before_destroy = Dir[Rails.root.join("#{path_critical}/*.html")].length
-
-      FileManager.destroy_file(Report.last)
-
-      expect(Dir[Rails.root.join("#{path_critical}/*")].length).to eq(before_destroy - 1)
-    end
-
-    it '.destroy_file default' do
-      VCR.use_cassette('report_example') do
-        ReportExampleJob.perform_now
-      end
-      before_destroy = Dir[Rails.root.join("#{path_default}/*.html")].length
-
-      FileManager.destroy_file(Report.last)
-
-      expect(Dir[Rails.root.join("#{path_default}/*")].length).to eq(before_destroy - 1)
-    end
-
-    it '.destroy_file low' do
-      Sidekiq::Testing.inline!
-      ReportLowPriorityWorker.perform_async
-      before_destroy = Dir[Rails.root.join("#{path_low}/*.html")].length
-
-      FileManager.destroy_file(Report.last)
-
-      expect(Dir[Rails.root.join("#{path_low}/*")].length).to eq(before_destroy - 1)
     end
   end
 
@@ -146,6 +144,39 @@ describe FileManager do
         expect(ReportContentManager.new).to receive(:create)
 
         FileManager.new(name: low_report.name, category: low_report.category).create_file
+      end
+    end
+
+    context '#generate_code' do
+      it '#generate_code once' do
+        code = attributes_for(:report, :default)[:report_code]
+        allow(SecureRandom).to receive(:base58).with(8).and_return(code)
+
+        expect(FileManager.new.code).to eq(code)
+      end
+
+      it '#generate_code twice' do
+        report = create(:report, :low)
+        code = attributes_for(:report, :default)[:report_code]
+        allow(SecureRandom).to receive(:base58).with(8).and_return(report.report_code, code)
+
+        expect(FileManager.new.code).to eq(code)
+      end
+
+      it '#generate_code break' do
+        allow(Report).to receive(:exists?).and_return(true, false, true, false)
+
+        FileManager.new
+
+        expect(Report).to have_received(:exists?).exactly(2).times
+      end
+
+      it '#generate_code another approach' do
+        expect(Report).to receive(:exists?).exactly(2).times
+
+        allow(Report).to receive(:exists?).and_return(true, false, true, false)
+
+        FileManager.new
       end
     end
   end
