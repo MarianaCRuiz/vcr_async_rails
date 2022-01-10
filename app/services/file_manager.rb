@@ -6,7 +6,7 @@ class FileManager
     @category = category
     self.code = Report.generate_code
     @report_path = FolderManager.setting_report_folder(category)
-    self.full_address = @full_address = Rails.root.join(@report_path, "#{name}#{code}.html")
+    self.full_address = Rails.root.join(@report_path, "#{name}#{code}.html")
   end
 
   def create_file

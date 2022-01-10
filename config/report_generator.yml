@@ -8,9 +8,9 @@ development:
   critical_name: 'criticalpriorityreport'
   default_name: 'reportexample'
   low_name: 'lowpriorityreport'
-  sleep_time_critical: 5
-  sleep_time_reports: 5
-  sleep_time_low: 5
+  sleep_time_critical: 2
+  sleep_time_reports: 2
+  sleep_time_low: 2
 test:
   reports_folder: 'spec/fixtures/reports'
   report_critical: 'spec/fixtures/reports/critical'
