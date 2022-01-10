@@ -6,7 +6,6 @@ class Report < ApplicationRecord
 
   def self.generate_code
     loop do
-      puts 'qualquer codigo________hueiii________olpa'
       @code = SecureRandom.base58(8)
       break unless Report.exists?(report_code: @code)
     end
