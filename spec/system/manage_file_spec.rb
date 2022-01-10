@@ -37,9 +37,9 @@ describe 'View Reports Generated' do
   context 'failure' do
     it 'Reports #create #index' do
       perform_enqueued_jobs do
-        allow(CriticalReportGenerator).to receive(:writing_file).and_return(false)
-        allow(DefaultReportGenerator).to receive(:writing_file).and_return(false)
-        allow(LowReportGenerator).to receive(:writing_file).and_return(true)
+        allow(CriticalReportGenerator).to receive(:writing_file).and_return('failure')
+        allow(DefaultReportGenerator).to receive(:writing_file).and_return('failure')
+        allow(LowReportGenerator).to receive(:writing_file).and_return('success')
 
         visit root_path
         click_on 'Relatórios'

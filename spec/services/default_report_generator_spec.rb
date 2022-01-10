@@ -28,9 +28,9 @@ describe DefaultReportGenerator do
       it '.writing_file default failure' do
         VCR.use_cassette('report_example') do
           params_writing = { full_address: attributes_default[:full_address], code: attributes_default[:code] }
-          allow(DefaultReportGenerator).to receive(:data_source).and_return(false)
+          allow(DefaultReportGenerator).to receive(:data_source).and_return('failure')
 
-          expect(DefaultReportGenerator).to receive(:writing_file).with(**params_writing).and_return(false)
+          expect(DefaultReportGenerator).to receive(:writing_file).with(**params_writing).and_return('failure')
 
           DefaultReportGenerator.writing_file(**params_writing)
         end
@@ -84,7 +84,7 @@ describe DefaultReportGenerator do
 
         response = DefaultReportGenerator.data_source
 
-        expect(response.class).to eq(FalseClass)
+        expect(response).to eq('failure')
       end
     end
   end

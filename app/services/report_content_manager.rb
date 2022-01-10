@@ -2,7 +2,7 @@ class ReportContentManager
   REPORT_CATEGORIES = { report_low: { report_type: 0, klass: LowReportGenerator },
                         report_default: { report_type: 1, klass: DefaultReportGenerator },
                         report_critical: { report_type: 2, klass: CriticalReportGenerator } }.freeze
-  FILE_CONDITION = { false => 10, true => 100 }.freeze
+  FILE_CONDITION = { 'failure' => 10, 'success' => 100 }.freeze
   attr_accessor :category, :code, :full_address
 
   def initialize(**params)
@@ -12,9 +12,9 @@ class ReportContentManager
   end
 
   def create
-    written_file = klass.writing_file(full_address: full_address, code: code)
+    file_status = klass.writing_file(full_address: full_address, code: code)
     params = { address: full_address, report_type: report_type,
-               report_code: code, file_condition: get_condition(written_file) }
+               report_code: code, file_condition: get_condition(file_status) }
     Report.create!(**params)
   end
 
@@ -24,8 +24,8 @@ class ReportContentManager
     REPORT_CATEGORIES[category][:klass]
   end
 
-  def get_condition(written_file)
-    FILE_CONDITION[written_file]
+  def get_condition(file_status)
+    FILE_CONDITION[file_status]
   end
 
   def report_type

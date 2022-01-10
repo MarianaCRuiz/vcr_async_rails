@@ -4,6 +4,6 @@ class LowReportGenerator
     @out_file.puts("<p>Your Low Priority Report Here - code: <b>#{code}</b></p>")
     @out_file.puts('<p>e-Book: Guia de Gems OneBitCode :)</p>')
     @out_file.close
-    true
+    'success'
   end
 end

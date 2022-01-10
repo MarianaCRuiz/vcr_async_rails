@@ -35,7 +35,7 @@ describe ReportContentManager do
     context 'success' do
       it '#create critical' do
         params_critical[:file_condition] = success
-        allow(CriticalReportGenerator).to receive(:writing_file).and_return(true)
+        allow(CriticalReportGenerator).to receive(:writing_file).and_return('success')
 
         expect(CriticalReportGenerator).to receive(:writing_file)
           .with(full_address: attributes_critical[:full_address], code: attributes_critical[:code])
@@ -46,7 +46,7 @@ describe ReportContentManager do
 
       it '#create default' do
         params_default[:file_condition] = success
-        allow(DefaultReportGenerator).to receive(:writing_file).and_return(true)
+        allow(DefaultReportGenerator).to receive(:writing_file).and_return('success')
 
         expect(DefaultReportGenerator).to receive(:writing_file)
           .with(full_address: attributes_default[:full_address], code: attributes_default[:code])
@@ -58,7 +58,7 @@ describe ReportContentManager do
 
       it '#create low' do
         params_low[:file_condition] = success
-        allow(LowReportGenerator).to receive(:writing_file).and_return(true)
+        allow(LowReportGenerator).to receive(:writing_file).and_return('success')
 
         expect(LowReportGenerator).to receive(:writing_file)
           .with(full_address: attributes_low[:full_address], code: attributes_low[:code])
@@ -71,7 +71,7 @@ describe ReportContentManager do
     context 'failure' do
       it '#create critical' do
         params_critical[:file_condition] = failure
-        allow(CriticalReportGenerator).to receive(:writing_file).and_return(false)
+        allow(CriticalReportGenerator).to receive(:writing_file).and_return('failure')
 
         expect(CriticalReportGenerator).to receive(:writing_file)
           .with(full_address: attributes_critical[:full_address], code: attributes_critical[:code])
@@ -81,7 +81,7 @@ describe ReportContentManager do
       end
       it '#create default' do
         params_default[:file_condition] = failure
-        allow(DefaultReportGenerator).to receive(:writing_file).and_return(false)
+        allow(DefaultReportGenerator).to receive(:writing_file).and_return('failure')
 
         expect(DefaultReportGenerator).to receive(:writing_file)
           .with(full_address: attributes_default[:full_address], code: attributes_default[:code])
@@ -92,7 +92,7 @@ describe ReportContentManager do
       end
       it '#create low' do
         params_low[:file_condition] = failure
-        allow(LowReportGenerator).to receive(:writing_file).and_return(false)
+        allow(LowReportGenerator).to receive(:writing_file).and_return('failure')
 
         expect(LowReportGenerator).to receive(:writing_file)
           .with(full_address: attributes_low[:full_address], code: attributes_low[:code])
@@ -113,8 +113,8 @@ describe ReportContentManager do
     it { expect(ReportContentManager.new(**attributes_low).send(:report_type)).to eq(0) }
 
     it '#get_condition' do
-      report_success = ReportContentManager.new(**attributes_low).send(:get_condition, true)
-      report_failure = ReportContentManager.new(**attributes_low).send(:get_condition, false)
+      report_success = ReportContentManager.new(**attributes_low).send(:get_condition, 'success')
+      report_failure = ReportContentManager.new(**attributes_low).send(:get_condition, 'failure')
 
       expect(report_success).to eq(100)
       expect(report_failure).to eq(10)

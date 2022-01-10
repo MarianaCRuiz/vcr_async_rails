@@ -30,9 +30,9 @@ describe CriticalReportGenerator do
       it '.writing_file critical failure' do
         VCR.use_cassette('critical_report_example') do
           params_writing = { full_address: attributes_critical[:full_address], code: attributes_critical[:code] }
-          allow(CriticalReportGenerator).to receive(:data_source).and_return(false)
+          allow(CriticalReportGenerator).to receive(:data_source).and_return('failure')
 
-          expect(CriticalReportGenerator).to receive(:writing_file).with(**params_writing).and_return(false)
+          expect(CriticalReportGenerator).to receive(:writing_file).with(**params_writing).and_return('failure')
 
           CriticalReportGenerator.writing_file(**params_writing)
         end
@@ -85,7 +85,7 @@ describe CriticalReportGenerator do
 
         response = CriticalReportGenerator.data_source
 
-        expect(response.class).to eq(FalseClass)
+        expect(response).to eq('failure')
       end
     end
   end

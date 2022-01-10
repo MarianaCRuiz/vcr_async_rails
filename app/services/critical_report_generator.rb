@@ -1,18 +1,18 @@
 class CriticalReportGenerator
   def self.writing_file(full_address: '', code: '')
-    return false unless data_source
+    return 'failure' if data_source == 'failure'
 
     @out_file = File.new(full_address, 'w')
     @out_file.puts("<p>Your CriticalReportExample Here - code: <b>#{code}</b></p>")
     @out_file.puts("<p>Titulo - #{@parsed[:title]}</b></p>")
     @out_file.puts("<p>Conteudo - #{@parsed[:body]}</p>")
     @out_file.close
-    true
+    'success'
   end
 
   def self.data_source
     @data_typicode = Faraday.get('https://jsonplaceholder.typicode.com/posts/1')
-    return false unless @data_typicode.status == 200
+    return 'failure' unless @data_typicode.status == 200
 
     @parsed = JSON.parse(@data_typicode.body, symbolize_names: true)
   end
