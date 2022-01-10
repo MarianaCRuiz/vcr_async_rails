@@ -4,9 +4,9 @@ class FileManager
   def initialize(name: 'reportexample', category: :report_default)
     @name = name
     @category = category
-    self.code = @code = Report.generate_code
+    self.code = Report.generate_code
     @report_path = FolderManager.setting_report_folder(category)
-    self.full_address = @full_address = Rails.root.join(@report_path, "#{name}#{@code}.html")
+    self.full_address = @full_address = Rails.root.join(@report_path, "#{name}#{self.code}.html")
   end
 
   def create_file
