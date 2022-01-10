@@ -43,5 +43,5 @@ yarn-debug.log*
 rspec.txt
 /covarage
 
-/public/reports/*
+/public/reports/**/*.html
 /spec/fixtures/vcr_cassettes/*
